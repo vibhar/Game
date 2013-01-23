@@ -25,18 +25,38 @@ var mySquare = new Square(200,200);
 var score = 0;
 var level = 1;
 
+function flip (sVal) {
+  this.up = sVal;
+  this.set = function () {
+	if (this.up === true) this.up = false;
+	else this.up = true;
+  }
+}
+
+var bob = new flip(true);
+
 function redrawAll() {
     // erase everything -- not efficient, but simple!
     ctx.clearRect(0, 0, 800, 500);
+	
+	//draw black background
+    ctx.fillStyle = "rgba(0,0,0,1.0)";
+    ctx.fillRect(0, 50, 800, 400);
+	
+	//player
+	ctx.fillStyle = "rgba(0,128,128,0.5)";
+	ctx.fillRect(mySquare.x-25, mySquare.y-25, 25, 50);
+	
+	//bullets
+	bullets.forEach(function(bullet){
+		ctx.fillStyle = "rgba(128,0,128,1.0)";
+		ctx.fillRect(bullet.x-15, bullet.y - 5, 30, 10);
+	});
     
     //draw gray rectangles on top and bottom
     ctx.fillStyle = "rgba(127,127,127,1.0)";
     ctx.fillRect(0, 0, 800, 50);
     ctx.fillRect(0, 450, 800, 50);
-
-    //draw black background
-    ctx.fillStyle = "rgba(0,0,0,1.0)";
-    ctx.fillRect(0, 50, 800, 400);
 
     //draw the health bar
     ctx.fillStyle = "rgba(0,0,0,1.0)";
@@ -52,7 +72,7 @@ function redrawAll() {
 	//red health
 	ctx.fillStyle = "rgba(255,28,36,1.0)";
     ctx.fillRect(250 + healthBarWidth, 11, 300 - healthBarWidth, 28);
-
+    
 	//orangey health
 	ctx.fillStyle = "rgba(211,83,39,1.0)";
     ctx.fillRect(250 + healthBarWidth, 11, healthBarLimboWidth, 28);
@@ -62,16 +82,11 @@ function redrawAll() {
 	ctx.fillStyle = "black";
 	ctx.fillText("Level " + level, 50, 40);
 	ctx.fillText(score, 725, 40);
-
-	//player
-	ctx.fillStyle = "rgba(0,128,128,0.5)";
-	ctx.fillRect(mySquare.x-25, mySquare.y-25, 25, 50);
 	
-	//bullets
-	bullets.forEach(function(bullet){
-		ctx.fillStyle = "rgba(128,0,128,1.0)";
-		ctx.fillRect(bullet.x-15, bullet.y - 5, 30, 10);
-	});
+	bob.set();
+    if (bob.up) mySquare.y-=3;
+    else mySquare.y+=3;
+
 }
 
 function onTimer() {
@@ -104,12 +119,13 @@ function onMouseDown(event) {
 function onKeyDown(event) {
     var keyDown = String.fromCharCode(event.keyCode);
 	var change;
+	
 	if (keyDown === 'G' && health >= 10){healthLimbo += 100;health-=100;return;}
 	
-	if (keyDown === 'W'){change = [0,-1];}
-	else if (keyDown === 'S'){change = [0,1];}
-	else if (keyDown === 'A'){change = [-1,0];}
-	else if (keyDown === 'D'){change = [1,0];}
+	if (keyDown === 'W'){change = [0,-5];}
+	else if (keyDown === 'S'){change = [0,5];}
+	else if (keyDown === 'A'){change = [-5,0];}
+	else if (keyDown === 'D'){change = [5,0];}
 	mySquare.x += change[0];
 	mySquare.y += change[1];
 }
