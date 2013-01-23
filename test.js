@@ -7,19 +7,12 @@ var t = 0;
 
 var health = 1000;
 var healthLimbo = 0;
-var bullets = [];
 
+var bullets = [];
 
 var enemies = [];
 enemies.push(makeEnemy1(0,0));
 
-function Bullet(x, y, dirX, dirY)
-{
-	this.x = x;
-	this.y = y;
-	this.dirX = dirX;
-	this.dirY = dirY;
-}
 
 function Square(x,y){
 	this.x = x;
@@ -55,10 +48,10 @@ function redrawAll() {
 	
 	//bullets
 	bullets.forEach(function(bullet){
-		ctx.fillStyle = "rgba(128,0,128,1.0)";
-		ctx.fillRect(bullet.x-15, bullet.y - 5, 30, 10);
+		bullet.drawBullet();
 	});
     
+    //enemies
     enemies.forEach(function(enemy){
         enemy.drawEnemy();
     });
@@ -105,9 +98,10 @@ function onTimer() {
 
 	score++;
 	if (healthLimbo >= 10){healthLimbo -= 10;}
-	bullets.forEach(function(bullet){
-		bullet.x += 1/10 * bullet.dirX;
-		bullet.y += 1/10 * bullet.dirY;
+	
+    bullets.forEach(function(bullet){
+		bullet.posX += 1/10 * bullet.dirX;
+		bullet.posY += 1/10 * bullet.dirY;
 	});
 
     enemies.forEach(function(enemy){
@@ -126,7 +120,7 @@ function onMouseDown(event) {
 	var dirX = clickX - mySquare.x;
 	var dirY = clickY - mySquare.y;
 	
-	var newBullet = new Bullet(x, y, dirX, dirY);
+	var newBullet = makeBullet1(x, y, dirX, dirY);
 	bullets.push(newBullet);
 	
 	score += 100;
