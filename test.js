@@ -3,9 +3,15 @@ var ctx = canvas.getContext("2d");
 
 var intervalId;
 var timerDelay = 100;
+var t = 0;
+
 var health = 1000;
 var healthLimbo = 0;
 var bullets = [];
+
+
+var enemies = [];
+enemies.push(makeEnemy1(0,0));
 
 function Bullet(x, y, dirX, dirY)
 {
@@ -53,6 +59,10 @@ function redrawAll() {
 		ctx.fillRect(bullet.x-15, bullet.y - 5, 30, 10);
 	});
     
+    enemies.forEach(function(enemy){
+        enemy.drawEnemy();
+    });
+
     //draw gray rectangles on top and bottom
     ctx.fillStyle = "rgba(127,127,127,1.0)";
     ctx.fillRect(0, 0, 800, 50);
@@ -90,12 +100,19 @@ function redrawAll() {
 }
 
 function onTimer() {
+
+    t += timerDelay/100;
+
 	score++;
 	if (healthLimbo >= 10){healthLimbo -= 10;}
 	bullets.forEach(function(bullet){
 		bullet.x += 1/10 * bullet.dirX;
 		bullet.y += 1/10 * bullet.dirY;
 	});
+
+    enemies.forEach(function(enemy){
+        enemy.updatePos(t);
+    });
     redrawAll();
 }
 
