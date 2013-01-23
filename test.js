@@ -38,53 +38,22 @@ function redrawAll() {
     // erase everything -- not efficient, but simple!
     ctx.clearRect(0, 0, 800, 500);
 	
-	//draw black background
-    ctx.fillStyle = "rgba(0,0,0,1.0)";
-    ctx.fillRect(0, 50, 800, 400);
-	
+    drawBackground();
+
 	//player
 	ctx.fillStyle = "rgba(0,128,128,0.5)";
 	ctx.fillRect(mySquare.x-25, mySquare.y-25, 25, 50);
 	
-	//bullets
 	bullets.forEach(function(bullet){
 		bullet.drawBullet();
 	});
-    
-    //enemies
+
     enemies.forEach(function(enemy){
         enemy.drawEnemy();
     });
 
-    //draw gray rectangles on top and bottom
-    ctx.fillStyle = "rgba(127,127,127,1.0)";
-    ctx.fillRect(0, 0, 800, 50);
-    ctx.fillRect(0, 450, 800, 50);
-
-    //draw the health bar
-    ctx.fillStyle = "rgba(0,0,0,1.0)";
-    ctx.strokeRect(249, 10, 301, 30);
-    
-	var healthBarLimboWidth = healthLimbo / 1000 * 300;
-	var healthBarWidth = health / 1000 * 300;
-
-	//green health
-	ctx.fillStyle = "rgba(0,255,128,1.0)";
-    ctx.fillRect(250, 11, healthBarWidth, 28);
-    
-	//red health
-	ctx.fillStyle = "rgba(255,28,36,1.0)";
-    ctx.fillRect(250 + healthBarWidth, 11, 300 - healthBarWidth, 28);
-    
-	//orangey health
-	ctx.fillStyle = "rgba(211,83,39,1.0)";
-    ctx.fillRect(250 + healthBarWidth, 11, healthBarLimboWidth, 28);
-	
-	//level
-    ctx.font = "bold 32px Arial";
-	ctx.fillStyle = "black";
-	ctx.fillText("Level " + level, 50, 40);
-	ctx.fillText(score, 725, 40);
+    drawTopMenuBar(health, healthLimbo);
+    drawBottomMenuBar();
 	
 	bob.set();
     if (bob.up) mySquare.y-=3;
@@ -131,7 +100,11 @@ function onKeyDown(event) {
     var keyDown = String.fromCharCode(event.keyCode);
 	var change;
 	
-	if (keyDown === 'G' && health >= 10){healthLimbo += 100;health-=100;return;}
+	if (keyDown === 'G' && health >= 10){
+        healthLimbo += 100;
+        health-=100;
+        return;
+    }
 	
 	if (keyDown === 'W'){change = [0,-5];}
 	else if (keyDown === 'S'){change = [0,5];}
