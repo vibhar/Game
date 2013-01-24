@@ -12,8 +12,8 @@ function Enemy(posX, posY, posFunction, health, armor, drawEnemyFunction)
     this.armor = armor;
     this.drawEnemyFunction = drawEnemyFunction;
 
-    this.updatePos = function(t){
-        var newPos = this.posFunction(t, this.posX, this.posY);
+    this.updatePos = function(t, dt){
+        var newPos = this.posFunction(t, dt, this.posX, this.posY);
         this.posX = newPos[0];
         this.posY = newPos[1];
     }
@@ -49,8 +49,8 @@ function Enemy(posX, posY, posFunction, health, armor, drawEnemyFunction)
 
 function makeEnemy1(posX, posY)
 {
-    var posFunction = function(t, prevPosX, prevPosY){
-        return [prevPosX+t, 300 + 100 * Math.sin(1/25 * t)]
+    var posFunction = function(t, dt, prevPosX, prevPosY){
+        return [prevPosX+1/10*dt, 300 + 100 * Math.sin(1/10*t)]
     }
     var drawEnemyFunction = function(x, y){
         ctx.fillStyle = "rgba(255,128,128,0.5)";

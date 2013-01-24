@@ -57,15 +57,18 @@ function redrawAll() {
     drawTopMenuBar(health, healthLimbo);
     drawBottomMenuBar();
 	
-	bob.set();
-    if (bob.up) mySquare.y-=3;
-    else mySquare.y+=3;
+	// bob.set();
+    // if (bob.up) mySquare.y-=3;
+    // else mySquare.y+=3;
 
 }
 var count = 0;
 function onTimer() {
     count++;
-    if (count === 50){enemies.push(new makeEnemy1(0,0));}
+    if (count === 13){enemies.push(new makeEnemy1(0,0));}
+    if (count === 19){enemies.push(new makeEnemy1(0,0));}
+    if (count === 24){enemies.push(new makeEnemy1(0,0));}
+    if (count === 29){enemies.push(new makeEnemy1(0,0));}
     t += timerDelay/100;
 
 
@@ -78,7 +81,7 @@ function onTimer() {
 	});
 
     enemies.forEach(function(enemy){
-        enemy.updatePos(timerDelay/100);
+        enemy.updatePos(t, timerDelay);
     });
 
     enemies.forEach(function(enemy){
