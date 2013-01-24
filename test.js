@@ -82,8 +82,7 @@ function onTimer() {
 	if (healthLimbo >= 10){healthLimbo -= 10;}
 	
     bullets.forEach(function(bullet){
-		bullet.posX += 1/10 * bullet.dirX;
-		bullet.posY += 1/10 * bullet.dirY;
+		bullet.updatePos();
 	});
 
     enemies.forEach(function(enemy){
