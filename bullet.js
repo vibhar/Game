@@ -6,10 +6,12 @@ function Bullet(posX, posY, dirX, dirY, damage, drawBulletFunction)
     this.dirX = dirX;
     this.dirY = dirY;
     this.damage = damage;
+    this.usedUp = false;
     this.drawBulletFunction = drawBulletFunction;
 
     this.drawBullet = function(){
-        this.drawBulletFunction(this.posX, this.posY);
+        if (!this.usedUp)
+            this.drawBulletFunction(this.posX, this.posY);
     }
 }
 
@@ -18,5 +20,5 @@ function makeBullet1(posX, posY, dirX, dirY){
         ctx.fillStyle = "rgba(128,0,128,1.0)";
         ctx.fillRect(posX, posY, 30, 10);
     }
-    return new Bullet(posX, posY, dirX, dirY, 1, drawBulletFunction);
+    return new Bullet(posX, posY, dirX, dirY, 50, drawBulletFunction);
 }

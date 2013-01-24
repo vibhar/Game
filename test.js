@@ -65,10 +65,16 @@ function redrawAll() {
 var count = 0;
 function onTimer() {
     count++;
-    if (count === 13){enemies.push(new makeEnemy1(0,0));}
-    if (count === 19){enemies.push(new makeEnemy1(0,0));}
-    if (count === 24){enemies.push(new makeEnemy1(0,0));}
-    if (count === 29){enemies.push(new makeEnemy1(0,0));}
+    
+    //set this to false if you don't want a wave only a single enemy
+    //useful for debugging purposes
+    var wave = false;
+    if (wave){
+        if (count === 13){enemies.push(new makeEnemy1(0,0));}
+        if (count === 19){enemies.push(new makeEnemy1(0,0));}
+        if (count === 24){enemies.push(new makeEnemy1(0,0));}
+        if (count === 29){enemies.push(new makeEnemy1(0,0));}
+    }
     t += timerDelay/100;
 
 

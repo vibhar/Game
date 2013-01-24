@@ -19,8 +19,8 @@ function Enemy(posX, posY, posFunction, health, armor, drawEnemyFunction)
     }
 
     this.drawEnemy = function(){
-        if (this.isAlive()){this.drawEnemyFunction(this.posX, this.posY);}
-        else {console.log("foobar");}
+        if (this.isAlive())
+            this.drawEnemyFunction(this.posX, this.posY);
     }
     this.bulletDamage = function(bullet){
         this.health -= bullet.damage * 1/(this.armor);
@@ -39,8 +39,9 @@ function Enemy(posX, posY, posFunction, health, armor, drawEnemyFunction)
             bullet.posX <= (this.posX + enemyWidth) &&
             this.posY <= (bullet.posY + bulletHeight) &&
             bullet.posY <= (this.posY + enemyHeight)){
-            this.health = 0;
-            console.log("foobar");
+            this.health -= this.bulletDamage(bullet);
+            bullet.usedUp = true;
+            
         }    
     }
 
