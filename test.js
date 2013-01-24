@@ -11,7 +11,8 @@ var healthLimbo = 0;
 var bullets = [];
 
 var enemies = [];
-enemies.push(makeEnemy1(0,0));
+var foo = new makeEnemy1(0,0);
+enemies.push(foo);
 
 
 function Square(x,y){
@@ -49,9 +50,10 @@ function redrawAll() {
 	});
 
     enemies.forEach(function(enemy){
+        // console.log(enemy.posX);
         enemy.drawEnemy();
     });
-
+    // console.log("foobar");
     drawTopMenuBar(health, healthLimbo);
     drawBottomMenuBar();
 	
@@ -60,10 +62,12 @@ function redrawAll() {
     else mySquare.y+=3;
 
 }
-
+var count = 0;
 function onTimer() {
-
+    count++;
+    if (count === 50){enemies.push(new makeEnemy1(0,0));}
     t += timerDelay/100;
+
 
 	score++;
 	if (healthLimbo >= 10){healthLimbo -= 10;}
@@ -74,7 +78,13 @@ function onTimer() {
 	});
 
     enemies.forEach(function(enemy){
-        enemy.updatePos(t);
+        enemy.updatePos(timerDelay/100);
+    });
+
+    enemies.forEach(function(enemy){
+        bullets.forEach(function(bullet){
+            enemy.hitByBullet(bullet);
+        });
     });
     redrawAll();
 }
