@@ -79,7 +79,7 @@ function onTimer() {
 	score++;
     
     //update health limbo (orange part of health bar)
-	if (healthLimbo >= 10){healthLimbo -= 10;}
+	if (healthLimbo >= 10){healthLimbo -= 20;}
 	
     //move bullets
     bullets.forEach(function(bullet){
