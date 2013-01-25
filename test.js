@@ -20,7 +20,7 @@ function Square(x,y){
 	this.y = y;
 }
 
-var mySquare = new Square(200,200);
+var mySquare = new Player(250,250);
 
 var score = 0;
 var level = 1;
@@ -42,8 +42,7 @@ function redrawAll() {
     drawBackground();
 
 	//player
-	ctx.fillStyle = "rgba(0,128,128,0.5)";
-	ctx.fillRect(mySquare.x-25, mySquare.y-25, 25, 50);
+	mySquare.drawPlayer();
 	
 	bullets.forEach(function(bullet){
 		bullet.drawBullet();
@@ -138,8 +137,6 @@ function onMouseDown(event) {
 function onKeyDown(event) {
     
     var keyDown = String.fromCharCode(event.keyCode);
-    
-	var change;
 	
 	if (keyDown === 'G' && health >= 10){
         healthLimbo += 100;
@@ -148,19 +145,18 @@ function onKeyDown(event) {
     }
 	
     if (keyDown === ' '){
-        var x = mySquare.x;
-	    var y = mySquare.y;
+        var x = mySquare.posX;
+	    var y = mySquare.posY;
         var newBullet = makeBullet1(x, y, 1, 0);
         bullets.push(newBullet);
         return;
     }
     
-	if (keyDown === 'W'){change = [0,-5];}
-	else if (keyDown === 'S'){change = [0,5];}
-	else if (keyDown === 'A'){change = [-5,0];}
-	else if (keyDown === 'D'){change = [5,0];}
-	mySquare.x += change[0];
-	mySquare.y += change[1];
+	if (keyDown === 'W'){mySquare.updatePos(0,-5);}
+	else if (keyDown === 'S'){mySquare.updatePos(0,5);}
+	else if (keyDown === 'A'){mySquare.updatePos(-5,0);}
+	else if (keyDown === 'D'){mySquare.updatePos(5,0);}
+
 }
 
 function run() {
