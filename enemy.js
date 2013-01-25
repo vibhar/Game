@@ -29,7 +29,13 @@ function Enemy(posX, posY, posFunction, health, armor, drawEnemyFunction)
     this.isAlive = function(){
         return this.health > 0;
     }
-
+    
+    this.isOffScreen = function(){
+        var xOff = (this.posX <= 0 || this.posX >= canvas.width);
+        var yOff = (this.posY <= 0 || this.posY >= canvas.height);
+        return xOff || yOff;
+    }
+    
     this.hitByBullet = function(bullet){
         var enemyWidth = 15;
         var enemyHeight = 15;

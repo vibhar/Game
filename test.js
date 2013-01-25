@@ -50,10 +50,9 @@ function redrawAll() {
 	});
 
     enemies.forEach(function(enemy){
-        // console.log(enemy.posX);
         enemy.drawEnemy();
     });
-    // console.log("foobar");
+
     drawTopMenuBar(health, healthLimbo);
     drawBottomMenuBar();
 	
@@ -68,7 +67,7 @@ function onTimer() {
     
     //set this to false if you don't want a wave only a single enemy
     //useful for debugging purposes
-    var wave = false;
+    var wave = true;
     if (wave){
         if (count === 13){enemies.push(new makeEnemy1(0,0));}
         if (count === 19){enemies.push(new makeEnemy1(0,0));}
@@ -79,25 +78,46 @@ function onTimer() {
 
 
 	score++;
+    
+    //update health limbo (orange part of health bar)
 	if (healthLimbo >= 10){healthLimbo -= 10;}
 	
+    //move bullets
     bullets.forEach(function(bullet){
 		bullet.updatePos();
 	});
 
+    //move enemies
     enemies.forEach(function(enemy){
         enemy.updatePos(t, timerDelay);
     });
 
+    //enemy bullet collisions
     enemies.forEach(function(enemy){
         bullets.forEach(function(bullet){
             enemy.hitByBullet(bullet);
         });
     });
+    
+    //remove dead or off screen enemies
+    for (var i = enemies.length-1; i >= 0; i--){  
+        if (!enemies[i].isAlive() || enemies[i].isOffScreen()){              
+            enemies.splice(i,1);
+        }
+    }
+    
+    //remove used up or off screen bullets
+    for (var i = bullets.length-1; i >= 0; i--){
+        if (bullets[i].usedUp || bullets[i].isOffScreen()){
+            bullets.splice(i,1);
+        }
+    }
+    
     redrawAll();
 }
 
 function onMouseDown(event) {
+    /*
 	var clickX = event.pageX - canvas.offsetLeft;
 	var clickY = event.pageY - canvas.offsetTop;
     
@@ -111,11 +131,14 @@ function onMouseDown(event) {
 	bullets.push(newBullet);
 	
 	score += 100;
+    */
 }
 
 
 function onKeyDown(event) {
+    
     var keyDown = String.fromCharCode(event.keyCode);
+    
 	var change;
 	
 	if (keyDown === 'G' && health >= 10){
@@ -124,6 +147,14 @@ function onKeyDown(event) {
         return;
     }
 	
+    if (keyDown === ' '){
+        var x = mySquare.x;
+	    var y = mySquare.y;
+        var newBullet = makeBullet1(x, y, 1, 0);
+        bullets.push(newBullet);
+        return;
+    }
+    
 	if (keyDown === 'W'){change = [0,-5];}
 	else if (keyDown === 'S'){change = [0,5];}
 	else if (keyDown === 'A'){change = [-5,0];}
