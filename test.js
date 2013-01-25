@@ -116,8 +116,8 @@ function onTimer() {
 }
 
 function onMouseDown(event) {
-    /*
-	var clickX = event.pageX - canvas.offsetLeft;
+    
+	/*var clickX = event.pageX - canvas.offsetLeft;
 	var clickY = event.pageY - canvas.offsetTop;
     
 	var x = mySquare.x;
@@ -129,8 +129,8 @@ function onMouseDown(event) {
 	var newBullet = makeBullet1(x, y, dirX, dirY);
 	bullets.push(newBullet);
 	
-	score += 100;
-    */
+	score += 100;*/
+    
 }
 
 
@@ -152,10 +152,22 @@ function onKeyDown(event) {
         return;
     }
     
-	if (keyDown === 'W'){mySquare.updatePos(0,-5);}
-	else if (keyDown === 'S'){mySquare.updatePos(0,5);}
-	else if (keyDown === 'A'){mySquare.updatePos(-5,0);}
-	else if (keyDown === 'D'){mySquare.updatePos(5,0);}
+	//up Arrow
+	if (event.keyCode === 38) {
+		mySquare.updatePos(0,-5);
+		}
+	//downArrow
+	else if (event.keyCode === 40){
+		mySquare.updatePos(0,5);
+		}
+	//leftArrow
+	else if (event.keyCode === 37){
+		mySquare.updatePos(-5,0);
+		}
+	//rightArrow
+	else if (event.keyCode===39) {
+		mySquare.updatePos(5,0);
+		}
 
 }
 
