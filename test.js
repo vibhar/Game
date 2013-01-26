@@ -168,7 +168,7 @@ function onTimer() {
 
 		//move enemies
 		enemies.forEach(function(enemy){
-			enemy.updatePos(t, timerDelay);
+			enemy.updatePos(t, timerDelay, count);
 		});
 
 		//enemy bullet collisions

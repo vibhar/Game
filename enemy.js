@@ -9,6 +9,9 @@ var bulletHeight = 10;
 var playerWidth = 25;
 var playerHeight = 25;
 
+var img = new Image();
+img.src = "fish/angryfish_sheet.png";
+
 function Enemy(posX, posY, posFunction, health, armor, drawEnemyFunction, damage)
 {
     this.posX = posX; 
@@ -18,11 +21,13 @@ function Enemy(posX, posY, posFunction, health, armor, drawEnemyFunction, damage
     this.armor = armor;
     this.drawEnemyFunction = drawEnemyFunction;
 	this.damage = damage;
+    this.frame = 0;
 	
-    this.updatePos = function(t, dt){
+    this.updatePos = function(t, dt, count){
         var newPos = this.posFunction(t, dt, this.posX, this.posY);
         this.posX = newPos[0];
         this.posY = newPos[1];
+        frame = Math.floor((count % 12) / 3);
     }
 
     this.drawEnemy = function(){
@@ -75,8 +80,8 @@ function makeEnemy1(posX, posY)
         return [prevPosX-1/10*dt, 300 + 100 * Math.sin(1/10*t)];	
     }
     var drawEnemyFunction = function(x, y){
-        ctx.fillStyle = "rgba(255,128,128,0.5)";
-        ctx.fillRect(x, y, 15, 15);
+        ctx.drawImage(img, 48*frame, 0, 47, 32, x, y, 30, 30);
+        console.log(frame);
     }
 
     return new Enemy(posX, posY, posFunction, 100, 1,drawEnemyFunction, 100);
