@@ -146,7 +146,7 @@ function onTimer() {
     t += timerDelay/100;
 
 
-	score++;
+	//score++;
     
     //update health limbo (orange part of health bar)
 	if (healthLimbo >= 10){healthLimbo -= 20;}
@@ -164,8 +164,9 @@ function onTimer() {
     //enemy bullet collisions
     enemies.forEach(function(enemy){
         bullets.forEach(function(bullet){
-            enemy.hitByBullet(bullet);
+            if (enemy.hitByBullet(bullet)) score+=50;
         });
+		health = (health - enemy.collidePlayer(mySquare));
     });
     
     //remove dead or off screen enemies

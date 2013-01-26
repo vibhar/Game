@@ -6,16 +6,19 @@ var enemyWidth = 15;
 var enemyHeight = 15;
 var bulletWidth = 10;
 var bulletHeight = 10;
+var playerWidth = 25;
+var playerHeight = 25;
 
-function Enemy(posX, posY, posFunction, health, armor, drawEnemyFunction)
+function Enemy(posX, posY, posFunction, health, armor, drawEnemyFunction, damage)
 {
     this.posX = posX; 
     this.posY = posY;
     this.posFunction = posFunction; 
-    this.health = health; 
+    this.health = health;
     this.armor = armor;
     this.drawEnemyFunction = drawEnemyFunction;
-
+	this.damage = damage;
+	
     this.updatePos = function(t, dt){
         var newPos = this.posFunction(t, dt, this.posX, this.posY);
         this.posX = newPos[0];
@@ -48,10 +51,21 @@ function Enemy(posX, posY, posFunction, health, armor, drawEnemyFunction)
             bullet.posY <= (this.posY + enemyHeight)){
             this.health -= this.bulletDamage(bullet);
             bullet.usedUp = true;
-            
+            return true;
         }    
+		return false;
     }
 
+	this.collidePlayer = function (player) {
+		if (this.posX <= (player.posX + playerWidth) &&
+            player.posX <= (this.posX + enemyWidth) &&
+            this.posY <= (player.posY + playerHeight) &&
+            player.posY <= (this.posY + enemyHeight)){
+            this.health = 0;
+			return this.damage;
+        }
+		else return 0;
+	}
 }
 
 
@@ -66,5 +80,5 @@ function makeEnemy1(posX, posY)
         ctx.fillRect(x, y, 15, 15);
     }
 
-    return new Enemy(posX, posY, posFunction, 100, 1,drawEnemyFunction);
+    return new Enemy(posX, posY, posFunction, 100, 1,drawEnemyFunction, 100);
 }
