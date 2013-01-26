@@ -17,7 +17,7 @@ enemies.push(foo);
 arrX = [];
 arrY = [];
 
-var screen = "game";
+var screen = "menu";
 var count = 0;
 
 var deadCount = 0;
@@ -67,9 +67,45 @@ function timerFired(){
         bullets.push(newBullet);
         return;
 	}
-	//r - reset
-	if (globals.keysDown[82]) {
+	//TODO
+	//h - upgrade hull
+	if (globals.keysDown[72]) {
+		return;
+	}
+	//TODO
+	//w - upgrade weapons 
+	if (globals.keysDown[87]) {
+		return;
+	}
+	//r - reset (to level 1), or s - start
+	if (globals.keysDown[82]||globals.keysDown[83]) {
 		screen = "game";
+		clearGame();
+		level = 1;
+		return;
+	}
+	//g - lowers health (for testing)
+	if (globals.keysDown[71]) {
+		if (health>=100){
+			healthLimbo += 100;
+			health-=100;
+        return;
+		}
+	}
+	//u - upgrade level - for testing
+	if (globals.keysDown[85]) {
+		screen = "upgrade";
+		clearGame();
+		level++;
+		return;
+	}
+	
+	
+	function bob() {
+		arrY.push(0,0,-1,0,1,2,-1,-2,-3);
+	}
+	
+	function clearGame () {
 		health = 1000;
 		healthLimbo = 0;
 		arrX = [];
@@ -81,21 +117,6 @@ function timerFired(){
 		score = 0;
 		deadCount = 0;
 		missCount = 0;
-		return;
-	}
-	//g - lowers health (for testing)
-	if (globals.keysDown[71]) {
-		if (health>=100){
-			healthLimbo += 100;
-			health-=100;
-        return;
-		}
-	}
-	//w - win game
-	
-	
-	function bob() {
-		arrY.push(0,0,-1,0,1,2,-1,-2,-3);
 	}
 }
 /****/
