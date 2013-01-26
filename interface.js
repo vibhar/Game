@@ -24,10 +24,10 @@ function drawHealthBar(){
     
     else if (healthBarWidth !== 0) {
         ctx.beginPath();
-            ctx.moveTo(250, 11);
-            ctx.lineTo(250 + healthBarWidth, 11);
-            ctx.lineTo(250 + healthBarWidth - 20, 39);
-            ctx.lineTo(250, 39);
+			ctx.moveTo(250, 11);
+			ctx.lineTo(250 + healthBarWidth, 11);
+			ctx.lineTo(250 + healthBarWidth - 20, 39);
+			ctx.lineTo(250, 39);
         ctx.fill();
     }
 

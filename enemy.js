@@ -72,8 +72,7 @@ function Enemy(posX, posY, posFunction, health, armor, drawEnemyFunction, damage
 function makeEnemy1(posX, posY)
 {
     var posFunction = function(t, dt, prevPosX, prevPosY){
-		console.log(canvas.height, canvas.width);
-        return [prevPosX+1/10*dt, 300 + 100 * Math.sin(1/10*t)];	
+        return [prevPosX-1/10*dt, 300 + 100 * Math.sin(1/10*t)];	
     }
     var drawEnemyFunction = function(x, y){
         ctx.fillStyle = "rgba(255,128,128,0.5)";

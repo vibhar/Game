@@ -11,7 +11,7 @@ var healthLimbo = 0;
 var bullets = [];
 
 var enemies = [];
-var foo = new makeEnemy1(0,0);
+var foo = new makeEnemy1(800,0);
 enemies.push(foo);
 
 arrX = [];
@@ -138,10 +138,10 @@ function onTimer() {
     //useful for debugging purposes
     var wave = true;
     if (wave){
-        if (count === 13){enemies.push(new makeEnemy1(0,0));}
-        if (count === 19){enemies.push(new makeEnemy1(0,0));}
-        if (count === 24){enemies.push(new makeEnemy1(0,0));}
-        if (count === 29){enemies.push(new makeEnemy1(0,0));}
+        if (count === 13){enemies.push(new makeEnemy1(800,0));}
+        if (count === 19){enemies.push(new makeEnemy1(800,0));}
+        if (count === 24){enemies.push(new makeEnemy1(800,0));}
+        if (count === 29){enemies.push(new makeEnemy1(800,0));}
     }
     t += timerDelay/100;
 
