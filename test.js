@@ -18,6 +18,7 @@ arrX = [];
 arrY = [];
 
 var screen = "game";
+var count = 0;
 
 /****/
 var globals = {};
@@ -71,6 +72,21 @@ function timerFired(){
         return;
 		}
 	}
+	if (globals.keysDown[82]) {
+		screen = "game";
+		health = 1000;
+		arrX = [];
+		arrY = [];
+		timerDelay = 100;
+		t = 0;
+		//var bullets = [];
+		enemies = [];
+		//var foo = new makeEnemy1(800,0);
+		//enemies.push(foo);
+		count = 0;
+		score = 0;
+		return;
+	}
 	
 	function bob() {
 		arrY.push(0,0,-1,0,1,2,-1,-2,-3);
@@ -101,11 +117,12 @@ var bob = new flip(true); */
 function redrawAll() {
     // erase everything -- not efficient, but simple!
     ctx.clearRect(0, 0, 800, 500);
+	console.log(screen);
 	
     drawBackground(screen);
+	timerFired();
 	
 	if (screen==="game") {
-		timerFired();
 		
 		if (arrY.length!=0) {
 			mySquare.updatePos(0,arrY.pop());
@@ -142,7 +159,6 @@ function redrawAll() {
 
 }
 
-var count = 0;
 function onTimer() {
 	if (screen==="game") {
 		count++;

@@ -7,12 +7,16 @@ var height = canvas.height;
 function drawBackground(screen){
 	var imgBg = new Image();
 	imgBg.src = "ocean.jpg";
-	ctx.drawImage(imgBg,0, 1/10 * height, width, 4/5 * height);
-	if (screen==="loss") {
+	if (screen==="game") {
+		ctx.drawImage(imgBg,0, 1/10 * height, width, 4/5 * height);
+	}
+	else if (screen==="loss") {
 		ctx.drawImage(imgBg, 0, 0, width, height);
-		ctx.font = "32px Helvetica";
+		ctx.font = "32px Courier New";
 		ctx.fillStyle = "white";
-		ctx.fillText("Mission Fish Termination: Failure", 175,1/2*height);
+		ctx.fillText("Mission Fish Termination: Failure", 75,1/2*height);
+		ctx.font = "26px Courier New";
+		ctx.fillText("Replay? Press R!", 275, 1/2*height+50);
 	}
 }
 
@@ -76,7 +80,7 @@ function drawTopMenuBar(health, healthLimbo){
     drawHealthBar();
 
     //level and score
-    ctx.font = "28px Helvetica";
+    ctx.font = "28px Geneva";
     ctx.fillStyle = "white";
     ctx.fillText("Level " + level, 50, 40);
     ctx.fillText(score, 725, 40);
