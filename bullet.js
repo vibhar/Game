@@ -35,11 +35,11 @@ function Bullet(posX, posY, dirX, dirY, speed, damage, drawBulletFunction)
 
 function makeBullet1(posX, posY, dirX, dirY){
     var drawBulletFunction = function(posX, posY){
-        ctx.fillStyle = "rgba(128,0,128,1.0)";
-        ctx.fillRect(posX, posY, 30, 10);
+        ctx.fillStyle = "rgba(255,255,255,1.0)";
+        ctx.fillRect(posX, posY, 10, 10);
     }
     var normDirX = dirX / Math.sqrt(dirX*dirX + dirY*dirY);
     var normDirY = dirY / Math.sqrt(dirX*dirX + dirY*dirY);
-    var speed = 10;
+    var speed = 20;
     return new Bullet(posX, posY, normDirX, normDirY, speed, 50, drawBulletFunction);
 }

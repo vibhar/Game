@@ -2,6 +2,10 @@
 
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
+var enemyWidth = 15;
+var enemyHeight = 15;
+var bulletWidth = 10;
+var bulletHeight = 10;
 
 function Enemy(posX, posY, posFunction, health, armor, drawEnemyFunction)
 {
@@ -37,10 +41,7 @@ function Enemy(posX, posY, posFunction, health, armor, drawEnemyFunction)
     }
     
     this.hitByBullet = function(bullet){
-        var enemyWidth = 15;
-        var enemyHeight = 15;
-        var bulletWidth = 30;
-        var bulletHeight = 10;
+
         if (this.posX <= (bullet.posX + bulletWidth) &&
             bullet.posX <= (this.posX + enemyWidth) &&
             this.posY <= (bullet.posY + bulletHeight) &&
@@ -57,7 +58,8 @@ function Enemy(posX, posY, posFunction, health, armor, drawEnemyFunction)
 function makeEnemy1(posX, posY)
 {
     var posFunction = function(t, dt, prevPosX, prevPosY){
-        return [prevPosX+1/10*dt, 300 + 100 * Math.sin(1/10*t)]
+		console.log(canvas.height, canvas.width);
+        return [prevPosX+1/10*dt, 300 + 100 * Math.sin(1/10*t)];	
     }
     var drawEnemyFunction = function(x, y){
         ctx.fillStyle = "rgba(255,128,128,0.5)";

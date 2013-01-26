@@ -71,7 +71,7 @@ function drawTopMenuBar(health, healthLimbo){
     drawHealthBar();
 
     //level and score
-    ctx.font = "32px Helvetica";
+    ctx.font = "28px Helvetica";
     ctx.fillStyle = "white";
     ctx.fillText("Level " + level, 50, 40);
     ctx.fillText(score, 725, 40);
