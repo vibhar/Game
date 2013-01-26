@@ -4,12 +4,15 @@ var ctx = canvas.getContext("2d");
 var width = canvas.width;
 var height = canvas.height;
 
-function drawBackground(){
+function drawBackground(screen){
 	var imgBg = new Image();
 	imgBg.src = "ocean.jpg";
 	ctx.drawImage(imgBg,0, 1/10 * height, width, 4/5 * height);
-    //ctx.fillStyle = "rgba(0,0,0,1.0)";
-    //ctx.fillRect(0, 1/10 * height, width, 4/5 * height);
+	if (screen==="loss") {
+		ctx.font = "32px Helvetica";
+		ctx.fillStyle = "white";
+		ctx.fillText("Mission Fish Termination: Failure", 175,1/2*height);
+	}
 }
 
 function drawHealthBar(){

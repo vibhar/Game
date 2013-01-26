@@ -17,6 +17,8 @@ enemies.push(foo);
 arrX = [];
 arrY = [];
 
+var screen = "game";
+
 /****/
 var globals = {};
 globals.keysDown = {};
@@ -100,29 +102,36 @@ function redrawAll() {
     // erase everything -- not efficient, but simple!
     ctx.clearRect(0, 0, 800, 500);
 	
-    drawBackground();
-	timerFired();
+    drawBackground(screen);
 	
-	if (arrY.length!=0) {
-		mySquare.updatePos(0,arrY.pop());
-	}
-	if (arrX.length!=0) {
-		mySquare.updatePos(arrX.pop(),0);
-	}
-	
-	//player
-	mySquare.drawPlayer();
-	
-	bullets.forEach(function(bullet){
-		bullet.drawBullet();
-	});
+	if (screen==="game") {
+		timerFired();
+		
+		if (arrY.length!=0) {
+			mySquare.updatePos(0,arrY.pop());
+		}
+		if (arrX.length!=0) {
+			mySquare.updatePos(arrX.pop(),0);
+		}
+		
+		//player
+		mySquare.drawPlayer();
+		
+		bullets.forEach(function(bullet){
+			bullet.drawBullet();
+		});
 
-    enemies.forEach(function(enemy){
-        enemy.drawEnemy();
-    });
-
-    drawTopMenuBar(health, healthLimbo);
-    drawBottomMenuBar();
+		enemies.forEach(function(enemy){
+			enemy.drawEnemy();
+		});
+	}
+	drawTopMenuBar(health, healthLimbo);
+	drawBottomMenuBar();
+	
+	if (health<=0) {
+		screen = "loss";
+	}
+	
 	
 	// bob.set();
     // if (bob.up) mySquare.y-=3;
@@ -132,56 +141,59 @@ function redrawAll() {
 
 var count = 0;
 function onTimer() {
-    count++;
-    
-    //set this to false if you don't want a wave only a single enemy
-    //useful for debugging purposes
-    var wave = true;
-    if (wave){
-        if (count === 13){enemies.push(new makeEnemy1(800,0));}
-        if (count === 19){enemies.push(new makeEnemy1(800,0));}
-        if (count === 24){enemies.push(new makeEnemy1(800,0));}
-        if (count === 29){enemies.push(new makeEnemy1(800,0));}
-    }
-    t += timerDelay/100;
+	if (screen==="game") {
+		count++;
+		
+		//set this to false if you don't want a wave only a single enemy
+		//useful for debugging purposes
+		var wave = true;
+		if (wave){
+			if (count === 13){enemies.push(new makeEnemy1(800,0));}
+			if (count === 19){enemies.push(new makeEnemy1(800,0));}
+			if (count === 24){enemies.push(new makeEnemy1(800,0));}
+			if (count === 29){enemies.push(new makeEnemy1(800,0));}
+		}
+		t += timerDelay/100;
 
 
-	//score++;
-    
-    //update health limbo (orange part of health bar)
-	if (healthLimbo >= 10){healthLimbo -= 20;}
-	
-    //move bullets
-    bullets.forEach(function(bullet){
-		bullet.updatePos();
-	});
+		//score++;
+		
+		//update health limbo (orange part of health bar)
+		if (healthLimbo >= 10){healthLimbo -= 20;}
+		
+		//move bullets
+		bullets.forEach(function(bullet){
+			bullet.updatePos();
+		});
 
-    //move enemies
-    enemies.forEach(function(enemy){
-        enemy.updatePos(t, timerDelay);
-    });
+		//move enemies
+		enemies.forEach(function(enemy){
+			enemy.updatePos(t, timerDelay);
+		});
 
-    //enemy bullet collisions
-    enemies.forEach(function(enemy){
-        bullets.forEach(function(bullet){
-            if (enemy.hitByBullet(bullet)) score+=50;
-        });
-		health = (health - enemy.collidePlayer(mySquare));
-    });
-    
-    //remove dead or off screen enemies
-    for (var i = enemies.length-1; i >= 0; i--){  
-        if (!enemies[i].isAlive() || enemies[i].isOffScreen()){              
-            enemies.splice(i,1);
-        }
-    }
-    
-    //remove used up or off screen bullets
-    for (var i = bullets.length-1; i >= 0; i--){
-        if (bullets[i].usedUp || bullets[i].isOffScreen()){
-            bullets.splice(i,1);
-        }
-    }
+		//enemy bullet collisions
+		enemies.forEach(function(enemy){
+			bullets.forEach(function(bullet){
+				if (enemy.hitByBullet(bullet)) score+=50;
+			});
+			
+			health = (health - enemy.collidePlayer(mySquare));
+		});
+		
+		//remove dead or off screen enemies
+		for (var i = enemies.length-1; i >= 0; i--){  
+			if (!enemies[i].isAlive() || enemies[i].isOffScreen()){              
+				enemies.splice(i,1);
+			}
+		}
+		
+		//remove used up or off screen bullets
+		for (var i = bullets.length-1; i >= 0; i--){
+			if (bullets[i].usedUp || bullets[i].isOffScreen()){
+				bullets.splice(i,1);
+			}
+		}
+	}
     
     redrawAll();
 }
