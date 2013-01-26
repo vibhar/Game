@@ -14,7 +14,65 @@ var enemies = [];
 var foo = new makeEnemy1(0,0);
 enemies.push(foo);
 
+arrX = [];
+arrY = [];
 
+/****/
+var globals = {};
+globals.keysDown = {};
+
+keyPressed = function(event){
+    globals.keysDown[event.keyCode] = true;
+}
+
+keyReleased = function(event){
+    globals.keysDown[event.keyCode] = undefined;
+}
+
+function timerFired(){
+	
+	//upArrow
+    if (globals.keysDown[38]) {
+		arrY = [];
+        bob();
+		arrY.push(-3,-5,-12);
+		}
+	//downArrow
+    if (globals.keysDown[40]) {
+		arrY = [];
+        bob();
+		arrY.push(3,5,9);
+		}
+	//leftArrow
+	if (globals.keysDown[37]) {
+		arrX = [];
+        arrX.push(-3,-5,-12);
+		}
+	//rightArrow
+	if (globals.keysDown[39]) {
+		arrX = [];
+        arrX.push(3,5,12);
+		}
+	//space - fires bullets
+	if (globals.keysDown[32]) {
+		var x = mySquare.posX;
+	    var y = mySquare.posY;
+        var newBullet = makeBullet1(x, y, 1, 0);
+        bullets.push(newBullet);
+        return;
+	}
+	//g - lowers health (for testing)
+	if (globals.keysDown[71]) {
+		healthLimbo += 100;
+        health-=100;
+        return;
+	}
+	
+	function bob() {
+		arrY.push(0,0,-1,0,1,2,-1,-2,-3);
+	}
+}
+/****/
 
 function Square(x,y){
 	this.x = x;
@@ -36,13 +94,12 @@ var level = 1;
 
 var bob = new flip(true); */
 
-var arrX = [];
-var arrY = [];
 function redrawAll() {
     // erase everything -- not efficient, but simple!
     ctx.clearRect(0, 0, 800, 500);
 	
     drawBackground();
+	timerFired();
 	
 	if (arrY.length!=0) {
 		mySquare.updatePos(0,arrY.pop());
@@ -144,58 +201,10 @@ function onMouseDown(event) {
     
 }
 
-
-function onKeyDown(event) {
-    
-    var keyDown = String.fromCharCode(event.keyCode);
-	
-	if (keyDown === 'G' && health >= 10){
-        healthLimbo += 100;
-        health-=100;
-        return;
-    }
-	
-    if (keyDown === ' '){
-        var x = mySquare.posX;
-	    var y = mySquare.posY;
-        var newBullet = makeBullet1(x, y, 1, 0);
-        bullets.push(newBullet);
-        return;
-    }
-    
-	event.onkeyup;
-	
-	arrX = [];
-	arrY = [];
-	//up Arrow
-	if (event.keyCode === 38) {
-		bob();
-		arrY.push(-3,-5,-9);
-		}
-	//downArrow
-	if (event.keyCode === 40){
-		bob();
-		arrY.push(3,5,9);
-
-		}
-	//leftArrow
-	if (event.keyCode === 37){
-		arrX.push(-3,-5,-9);
-		}
-	//rightArrow
-	if (event.keyCode===39) {
-		arrX.push(3,5,9);
-		}
-		
-	function bob() {
-		arrY.push(0,0,-1,0,1,2);
-	}
-
-}
-
 function run() {
-	canvas.addEventListener('mousedown', onMouseDown, false);
-    canvas.addEventListener('keydown', onKeyDown, false);
+	//canvas.addEventListener('mousedown', onMouseDown, false);
+	canvas.addEventListener('keydown', this.keyPressed, false);
+	canvas.addEventListener('keyup', this.keyReleased, false);
     // make canvas focusable, then give it focus!
     canvas.setAttribute('tabindex','0');
     canvas.focus();
