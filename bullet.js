@@ -33,10 +33,18 @@ function Bullet(posX, posY, dirX, dirY, speed, damage, drawBulletFunction)
     }
 }
 
+var bulletImg = new Image();
+bulletImg.src = "fish/bullet.png";
+bulletImg.onload = function() {
+  var canvas = document.getElementbyId("myCanvas");
+  var ctx = canvas.getContext("2d");
+}
+
 function makeBullet1(posX, posY, dirX, dirY){
     var drawBulletFunction = function(posX, posY){
-        ctx.fillStyle = "rgba(255,255,255,1.0)";
-        ctx.fillRect(posX, posY, 10, 10);
+        //ctx.fillStyle = "rgba(255,255,255,1.0)";
+        //ctx.fillRect(posX, posY, 10, 10);
+        ctx.drawImage(bulletImg, posX, posY, 10, 10);
     }
     var normDirX = dirX / Math.sqrt(dirX*dirX + dirY*dirY);
     var normDirY = dirY / Math.sqrt(dirX*dirX + dirY*dirY);
