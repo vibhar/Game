@@ -15,6 +15,7 @@ var foo = new makeEnemy1(0,0);
 enemies.push(foo);
 
 
+
 function Square(x,y){
 	this.x = x;
 	this.y = y;
@@ -25,7 +26,7 @@ var mySquare = new Player(250,250);
 var score = 0;
 var level = 1;
 
-function flip (sVal) {
+/*function flip (sVal) {
   this.up = sVal;
   this.set = function () {
 	if (this.up === true) this.up = false;
@@ -33,14 +34,23 @@ function flip (sVal) {
   }
 }
 
-var bob = new flip(true);
+var bob = new flip(true); */
 
+var arrX = [];
+var arrY = [];
 function redrawAll() {
     // erase everything -- not efficient, but simple!
     ctx.clearRect(0, 0, 800, 500);
 	
     drawBackground();
-
+	
+	if (arrY.length!=0) {
+		mySquare.updatePos(0,arrY.pop());
+	}
+	if (arrX.length!=0) {
+		mySquare.updatePos(arrX.pop(),0);
+	}
+	
 	//player
 	mySquare.drawPlayer();
 	
@@ -60,6 +70,7 @@ function redrawAll() {
     // else mySquare.y+=3;
 
 }
+
 var count = 0;
 function onTimer() {
     count++;
@@ -152,22 +163,33 @@ function onKeyDown(event) {
         return;
     }
     
+	event.onkeyup;
+	
+	arrX = [];
+	arrY = [];
 	//up Arrow
 	if (event.keyCode === 38) {
-		mySquare.updatePos(0,-5);
+		bob();
+		arrY.push(-3,-5,-9);
 		}
 	//downArrow
-	else if (event.keyCode === 40){
-		mySquare.updatePos(0,5);
+	if (event.keyCode === 40){
+		bob();
+		arrY.push(3,5,9);
+
 		}
 	//leftArrow
-	else if (event.keyCode === 37){
-		mySquare.updatePos(-5,0);
+	if (event.keyCode === 37){
+		arrX.push(-3,-5,-9);
 		}
 	//rightArrow
-	else if (event.keyCode===39) {
-		mySquare.updatePos(5,0);
+	if (event.keyCode===39) {
+		arrX.push(3,5,9);
 		}
+		
+	function bob() {
+		arrY.push(0,0,-1,0,1,2);
+	}
 
 }
 
@@ -178,6 +200,7 @@ function run() {
     canvas.setAttribute('tabindex','0');
     canvas.focus();
     intervalId = setInterval(onTimer, timerDelay);
+	
 }
 
 run();

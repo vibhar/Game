@@ -5,7 +5,7 @@ function Player(posX, posY){
     
     this.posX = posX;
     this.posY = posY;
-
+	
     this.isOffScreen = function(){
         return !(this.posX >= 10 && 
                 this.posX <= (canvas.width - 30) &&
