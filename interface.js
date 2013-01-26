@@ -5,8 +5,11 @@ var width = canvas.width;
 var height = canvas.height;
 
 function drawBackground(){
-    ctx.fillStyle = "rgba(0,0,0,1.0)";
-    ctx.fillRect(0, 1/10 * height, width, 4/5 * height);
+	var imgBg = new Image();
+	imgBg.src = "ocean.jpg";
+	ctx.drawImage(imgBg,0, 1/10 * height, width, 4/5 * height);
+    //ctx.fillStyle = "rgba(0,0,0,1.0)";
+    //ctx.fillRect(0, 1/10 * height, width, 4/5 * height);
 }
 
 function drawHealthBar(){
@@ -14,7 +17,7 @@ function drawHealthBar(){
     var healthBarWidth = health / 1000 * 300;
 
     //green health
-    ctx.fillStyle = "rgba(0,255,128,1.0)";
+    ctx.fillStyle = "rgba(11,218,81,1.0)";
     
     if (healthBarWidth === 300)
         ctx.fillRect(250, 11, healthBarWidth, 28);
@@ -29,7 +32,7 @@ function drawHealthBar(){
     }
 
     //red health
-    ctx.fillStyle = "rgba(255,28,36,1.0)";
+    ctx.fillStyle = "rgba(206,32,41,1.0)";
     
     if (healthBarWidth !== 300 && healthBarWidth !== 0){
         ctx.beginPath();
@@ -58,7 +61,7 @@ function drawHealthBar(){
 
 }
 function drawTopMenuBar(health, healthLimbo){
-    ctx.fillStyle = "rgba(127,127,127,1.0)";
+    ctx.fillStyle = "rgba(6,42,140,1.0)";
     ctx.fillRect(0, 0, 800, 50);
 
     //draw the health bar
@@ -68,13 +71,13 @@ function drawTopMenuBar(health, healthLimbo){
     drawHealthBar();
 
     //level and score
-    ctx.font = "bold 32px Arial";
-    ctx.fillStyle = "black";
+    ctx.font = "32px Helvetica";
+    ctx.fillStyle = "white";
     ctx.fillText("Level " + level, 50, 40);
     ctx.fillText(score, 725, 40);
 }
 
 function drawBottomMenuBar(){
-    ctx.fillStyle = "rgba(127,127,127,1.0)";
+    ctx.fillStyle = "rgba(6,42,140,1.0)";
     ctx.fillRect(0, 450, 800, 50);
 }

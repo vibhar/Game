@@ -63,9 +63,11 @@ function timerFired(){
 	}
 	//g - lowers health (for testing)
 	if (globals.keysDown[71]) {
-		healthLimbo += 100;
-        health-=100;
+		if (health>=100){
+			healthLimbo += 100;
+			health-=100;
         return;
+		}
 	}
 	
 	function bob() {

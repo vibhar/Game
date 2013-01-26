@@ -23,7 +23,7 @@ function Player(posX, posY){
     }
 
     this.drawPlayer = function(){
-        ctx.fillStyle = "rgba(0,128,128,0.5)";
+        ctx.fillStyle = "rgba(255,247,0,0.5)";
         ctx.fillRect(this.posX, this.posY, 25, 50);
     }
 }
