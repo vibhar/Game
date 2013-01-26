@@ -7,10 +7,10 @@ function Player(posX, posY){
     this.posY = posY;
 	
     this.isOffScreen = function(){
-        return !(this.posX >= 10 && 
-                this.posX <= (canvas.width - 30) &&
-                this.posY >= (1/10 * canvas.height + 10) &&
-                this.posY <= (9/10 * canvas.height - 60))    
+        return !(this.posX >= 0 && 
+                this.posX <= (canvas.width - 25) &&
+                this.posY >= (1/10 * canvas.height) &&
+                this.posY <= (9/10*canvas.height-25))    
     }
 
     this.updatePos = function(x, y){

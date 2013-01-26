@@ -124,9 +124,12 @@ function redrawAll() {
 		enemies.forEach(function(enemy){
 			enemy.drawEnemy();
 		});
+		
+		drawTopMenuBar(health, healthLimbo);
+		drawBottomMenuBar();
+		
 	}
-	drawTopMenuBar(health, healthLimbo);
-	drawBottomMenuBar();
+
 	
 	if (health<=0) {
 		screen = "loss";

@@ -4,14 +4,12 @@ var ctx = canvas.getContext("2d");
 var width = canvas.width;
 var height = canvas.height;
 
-var menuBarImg = new Image();
-menuBarImg.src = "img/bar.png"
-
 function drawBackground(screen){
 	var imgBg = new Image();
 	imgBg.src = "ocean.jpg";
 	ctx.drawImage(imgBg,0, 1/10 * height, width, 4/5 * height);
 	if (screen==="loss") {
+		ctx.drawImage(imgBg, 0, 0, width, height);
 		ctx.font = "32px Helvetica";
 		ctx.fillStyle = "white";
 		ctx.fillText("Mission Fish Termination: Failure", 175,1/2*height);
@@ -67,9 +65,10 @@ function drawHealthBar(){
 
 }
 function drawTopMenuBar(health, healthLimbo){
-    // ctx.fillStyle = "rgba(6,42,140,1.0)";
-    // ctx.fillRect(0, 0, 800, 50);
-    ctx.drawImage(menuBarImg, 0, 0, 800, 50);
+    
+	ctx.fillStyle = "rgba(6,42,140,1.0)";
+    ctx.fillRect(0, 0, 800, 50);
+
     //draw the health bar
     ctx.fillStyle = "rgba(0,0,0,1.0)";
     ctx.strokeRect(249, 10, 301, 30);
@@ -84,7 +83,6 @@ function drawTopMenuBar(health, healthLimbo){
 }
 
 function drawBottomMenuBar(){
-    // ctx.fillStyle = "rgba(6,42,140,1.0)";
-    // ctx.fillRect(0, 450, 800, 50);
-    ctx.drawImage(menuBarImg, 0, 450, 800, 50);
-}   
+    ctx.fillStyle = "rgba(6,42,140,1.0)";
+    ctx.fillRect(0, 450, 800, 50);
+}
