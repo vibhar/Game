@@ -36,7 +36,7 @@ function Bullet(posX, posY, dirX, dirY, speed, damage, drawBulletFunction)
 var bulletImg = new Image();
 bulletImg.src = "fish/bullet.png";
 bulletImg.onload = function() {
-  var canvas = document.getElementbyId("myCanvas");
+  var canvas = document.getElementById("myCanvas");
   var ctx = canvas.getContext("2d");
 }
 

@@ -20,6 +20,9 @@ arrY = [];
 var screen = "game";
 var count = 0;
 
+var deadCount = 0;
+var missCount = 0;
+
 /****/
 var globals = {};
 globals.keysDown = {};
@@ -64,6 +67,22 @@ function timerFired(){
         bullets.push(newBullet);
         return;
 	}
+	//r - reset
+	if (globals.keysDown[82]) {
+		screen = "game";
+		health = 1000;
+		healthLimbo = 0;
+		arrX = [];
+		arrY = [];
+		timerDelay = 100;
+		t = 0;
+		enemies = [];
+		count = 0;
+		score = 0;
+		deadCount = 0;
+		missCount = 0;
+		return;
+	}
 	//g - lowers health (for testing)
 	if (globals.keysDown[71]) {
 		if (health>=100){
@@ -72,21 +91,8 @@ function timerFired(){
         return;
 		}
 	}
-	if (globals.keysDown[82]) {
-		screen = "game";
-		health = 1000;
-		arrX = [];
-		arrY = [];
-		timerDelay = 100;
-		t = 0;
-		//var bullets = [];
-		enemies = [];
-		//var foo = new makeEnemy1(800,0);
-		//enemies.push(foo);
-		count = 0;
-		score = 0;
-		return;
-	}
+	//w - win game
+	
 	
 	function bob() {
 		arrY.push(0,0,-1,0,1,2,-1,-2,-3);
@@ -152,6 +158,8 @@ function redrawAll() {
 		screen = "loss";
 	}
 	
+	console.log(deadCount, missCount);
+	
 	
 	// bob.set();
     // if (bob.up) mySquare.y-=3;
@@ -167,6 +175,7 @@ function onTimer() {
 		//useful for debugging purposes
 		var wave = true;
 		if (wave){
+			//if (count > 10 && (count % 5 === 0)) {enemies.push(new makeEnemy1(800,0));}
 			if (count === 13){enemies.push(new makeEnemy1(800,0));}
 			if (count === 19){enemies.push(new makeEnemy1(800,0));}
 			if (count === 24){enemies.push(new makeEnemy1(800,0));}
@@ -200,10 +209,18 @@ function onTimer() {
 		});
 		
 		//remove dead or off screen enemies
-		for (var i = enemies.length-1; i >= 0; i--){  
-			if (!enemies[i].isAlive() || enemies[i].isOffScreen()){              
+		for (var i = enemies.length-1; i >= 0; i--){
+			if (!enemies[i].isAlive()) {
+				deadCount++;
 				enemies.splice(i,1);
 			}
+			if ((typeof(enemies)!==undefined) && (enemies[i].isOffScreen())) {
+				missCount++;
+				enemies.splice(i,1);
+			}
+			/*if (!enemies[i].isAlive() || enemies[i].isOffScreen()){              
+				enemies.splice(i,1);
+			}*/
 		}
 		
 		//remove used up or off screen bullets
