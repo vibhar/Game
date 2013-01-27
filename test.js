@@ -146,7 +146,7 @@ var bob = new flip(true); */
 function redrawAll() {
     // erase everything -- not efficient, but simple!
     ctx.clearRect(0, 0, 800, 500);
-	console.log(screen);
+	// console.log(screen);
 	
     drawBackground(screen);
 	timerFired();
@@ -181,7 +181,7 @@ function redrawAll() {
 		screen = "loss";
 	}
 	
-	console.log(deadCount, missCount);
+	// console.log(deadCount, missCount);
 	
 	
 	// bob.set();
@@ -199,10 +199,22 @@ function onTimer() {
 		var wave = true;
 		if (wave){
 			//if (count > 10 && (count % 5 === 0)) {enemies.push(new makeEnemy1(800,0));}
-			if (count === 13){enemies.push(new makeEnemy1(800,0));}
-			if (count === 19){enemies.push(new makeEnemy1(800,0));}
-			if (count === 24){enemies.push(new makeEnemy1(800,0));}
-			if (count === 29){enemies.push(new makeEnemy1(800,0));}
+			if (count === 13){
+				var randomnumber=Math.floor(Math.random()*250);
+				enemies.push(new makeEnemy4(800, 75 + randomnumber));
+			}
+			if (count === 19){
+				var randomnumber=Math.floor(Math.random()*250);
+				enemies.push(new makeEnemy4(800, 75 + randomnumber));
+			}
+			if (count === 24){
+				var randomnumber=Math.floor(Math.random()*250);
+				enemies.push(new makeEnemy4(800, 75 + randomnumber));
+			}
+			if (count === 29){
+				var randomnumber=Math.floor(Math.random()*250);
+				enemies.push(new makeEnemy4(800, 75 + randomnumber));
+			}
 		}
 		t += timerDelay/100;
 
