@@ -123,7 +123,7 @@ var bob = new flip(true); */
 function redrawAll() {
     // erase everything -- not efficient, but simple!
     ctx.clearRect(0, 0, 800, 500);
-	console.log(screen);
+	// console.log(screen);
 	
     drawBackground(screen);
 	timerFired();
@@ -158,7 +158,7 @@ function redrawAll() {
 		screen = "loss";
 	}
 	
-	console.log(deadCount, missCount);
+	//console.log(deadCount, missCount);
 	
 	
 	// bob.set();
