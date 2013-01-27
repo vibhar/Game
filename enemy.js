@@ -1,4 +1,4 @@
-//requies bullet.js
+//requires bullet.js
 
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
@@ -12,7 +12,8 @@ var playerHeight = 25;
 var img = new Image();
 img.src = "fish/angryfish_sheet.png";
 
-function Enemy(posX, posY, posFunction, health, armor, drawEnemyFunction, damage)
+function Enemy(posX, posY, posFunction, health, armor, 
+               drawEnemyFunction, damage, numSprites)
 {
     this.posX = posX; 
     this.posY = posY;
@@ -22,17 +23,18 @@ function Enemy(posX, posY, posFunction, health, armor, drawEnemyFunction, damage
     this.drawEnemyFunction = drawEnemyFunction;
 	this.damage = damage;
     this.frame = 0;
+    this.speed = 1/10;
 	
     this.updatePos = function(t, dt, count){
-        var newPos = this.posFunction(t, dt, this.posX, this.posY);
+        var newPos = this.posFunction(t, dt, this.posX, this.posY, this.speed);
         this.posX = newPos[0];
         this.posY = newPos[1];
-        frame = Math.floor((count % 12) / 3);
+        // frame = Math.floor((count % 12) / 3);
     }
 
     this.drawEnemy = function(){
         if (this.isAlive())
-            this.drawEnemyFunction(this.posX, this.posY);
+            this.drawEnemyFunction(this.posX, this.posY, this.frame);
     }
     this.bulletDamage = function(bullet){
         this.health -= bullet.damage * 1/(this.armor);
@@ -102,73 +104,53 @@ crab.onload = function() {
   var ctx = canvas.getContext("2d");
 }
 
-// function makeEnemy1(posX, posY)
-// {
-//     var posFunction = function(t, dt, prevPosX, prevPosY){
-//         return [prevPosX-1/10*dt, 300 + 100 * Math.sin(1/10*t)];
-//     }
-//     var drawEnemyFunction = function(x, y){
-//         //ctx.fillStyle = "rgba(255,128,128,0.5)";
-//         //ctx.fillRect(x, y, 15, 15);
-//         ctx.drawImage(angryfish, x, y);
-//     }
-// 
-//     return new Enemy(posX, posY, posFunction, 100, 1,drawEnemyFunction, 100);
-// }
-
 function makeEnemy2(posX, posY)
 {
-    var posFunction = function(t, dt, prevPosX, prevPosY){
-        return [prevPosX-1/10*dt, 200 + 50 * Math.sin(1/10*t)];
+    var posFunction = function(t, dt, prevPosX, prevPosY, speed){
+        return [prevPosX-speed*dt, 200 + 50 * Math.sin(1/10*t)];
     }
     var drawEnemyFunction = function(x, y){
-        //ctx.fillStyle = "rgba(255,128,128,0.5)";
-        //ctx.fillRect(x, y, 15, 15);
         ctx.drawImage(swordfish, x, y);
     }
 
-    return new Enemy(posX, posY, posFunction, 100, 1,drawEnemyFunction, 100);
+    return new Enemy(posX, posY, posFunction, 100, 1,drawEnemyFunction, 100, 1);
 }
 
 
 function makeEnemy3(posX, posY)
 {
-    var posFunction = function(t, dt, prevPosX, prevPosY){
-        return [prevPosX-1/10*dt, 350 + 100 * Math.sin(1/10*t)];
+    var posFunction = function(t, dt, prevPosX, prevPosY, speed){
+        return [prevPosX-speed*dt, prevPosY];
     }
     var drawEnemyFunction = function(x, y){
-        //ctx.fillStyle = "rgba(255,128,128,0.5)";
-        //ctx.fillRect(x, y, 15, 15);
         ctx.drawImage(pufferfish, x, y);
     }
 
-    return new Enemy(posX, posY, posFunction, 100, 1,drawEnemyFunction, 100);
+    return new Enemy(posX, posY, posFunction, 100, 1,drawEnemyFunction, 100, 1);
 }
 
 
 function makeEnemy4(posX, posY)
 {
-    var posFunction = function(t, dt, prevPosX, prevPosY){
-        return [prevPosX-1/10*dt, 400 + 0 * Math.sin(1/10*t)];
+    var posFunction = function(t, dt, prevPosX, prevPosY, speed){
+        return [prevPosX-speed*dt, prevPosY];
     }
     var drawEnemyFunction = function(x, y){
-        //ctx.fillStyle = "rgba(255,128,128,0.5)";
-        //ctx.fillRect(x, y, 15, 15);
         ctx.drawImage(crab, x, y);
     }
 
-    return new Enemy(posX, posY, posFunction, 100, 1,drawEnemyFunction, 100);
+    return new Enemy(posX, posY, posFunction, 100, 1,drawEnemyFunction, 100, 1);
 }
 
 function makeEnemy1(posX, posY)
 {
-    var posFunction = function(t, dt, prevPosX, prevPosY){
-        return [prevPosX-1/10*dt, 300 + 100 * Math.sin(1/10*t)];
+    var posFunction = function(t, dt, prevPosX, prevPosY, speed){
+        return [prevPosX-speed*dt, 300 + 100 * Math.sin(1/10*t)];
     }
-    var drawEnemyFunction = function(x, y){
+    var drawEnemyFunction = function(x, y, frame){
+        
         ctx.drawImage(img, 48*frame, 0, 47, 32, x, y, 30, 30);
-        console.log(frame);
     }
 
-    return new Enemy(posX, posY, posFunction, 100, 1,drawEnemyFunction, 100);
+    return new Enemy(posX, posY, posFunction, 100, 1,drawEnemyFunction, 100, 1);
 }

@@ -17,7 +17,7 @@ enemies.push(foo);
 arrX = [];
 arrY = [];
 
-var screen = "game";
+var screen = "menu";
 var count = 0;
 
 var deadCount = 0;
@@ -67,9 +67,47 @@ function timerFired(){
         bullets.push(newBullet);
         return;
 	}
-	//r - reset
-	if (globals.keysDown[82]) {
+	//TODO
+	//h - upgrade hull
+	//does this by changing a variable, then calls clearGame() and sets screen back to "game"
+	if (globals.keysDown[72]) {
+		return;
+	}
+	//TODO
+	//w - upgrade weapons 
+	//ditto as upgrade hull, but dif. variable
+	if (globals.keysDown[87]) {
+		return;
+	}
+	//r - reset (to level 1), or s - start
+	if (globals.keysDown[82]||globals.keysDown[83]) {
 		screen = "game";
+		clearGame();
+		level = 1;
+		return;
+	}
+	//g - lowers health (for testing)
+	if (globals.keysDown[71]) {
+		if (health>=100){
+			healthLimbo += 100;
+			health-=100;
+        return;
+		}
+	}
+	//u - upgrade level - for testing
+	if (globals.keysDown[85]) {
+		screen = "upgrade";
+		clearGame();
+		level++;
+		return;
+	}
+	
+	
+	function bob() {
+		arrY.push(0,0,-1,0,1,2,-1,-2,-3);
+	}
+	
+	function clearGame () {
 		health = 1000;
 		healthLimbo = 0;
 		arrX = [];
@@ -81,21 +119,6 @@ function timerFired(){
 		score = 0;
 		deadCount = 0;
 		missCount = 0;
-		return;
-	}
-	//g - lowers health (for testing)
-	if (globals.keysDown[71]) {
-		if (health>=100){
-			healthLimbo += 100;
-			health-=100;
-        return;
-		}
-	}
-	//w - win game
-	
-	
-	function bob() {
-		arrY.push(0,0,-1,0,1,2,-1,-2,-3);
 	}
 }
 /****/
@@ -158,7 +181,7 @@ function redrawAll() {
 		screen = "loss";
 	}
 	
-	//console.log(deadCount, missCount);
+	// console.log(deadCount, missCount);
 	
 	
 	// bob.set();
@@ -176,10 +199,22 @@ function onTimer() {
 		var wave = true;
 		if (wave){
 			//if (count > 10 && (count % 5 === 0)) {enemies.push(new makeEnemy1(800,0));}
-			if (count === 13){enemies.push(new makeEnemy1(800,0));}
-			if (count === 19){enemies.push(new makeEnemy1(800,0));}
-			if (count === 24){enemies.push(new makeEnemy1(800,0));}
-			if (count === 29){enemies.push(new makeEnemy1(800,0));}
+			if (count === 13){
+				var randomnumber=Math.floor(Math.random()*250);
+				enemies.push(new makeEnemy4(800, 75 + randomnumber));
+			}
+			if (count === 19){
+				var randomnumber=Math.floor(Math.random()*250);
+				enemies.push(new makeEnemy4(800, 75 + randomnumber));
+			}
+			if (count === 24){
+				var randomnumber=Math.floor(Math.random()*250);
+				enemies.push(new makeEnemy4(800, 75 + randomnumber));
+			}
+			if (count === 29){
+				var randomnumber=Math.floor(Math.random()*250);
+				enemies.push(new makeEnemy4(800, 75 + randomnumber));
+			}
 		}
 		t += timerDelay/100;
 
