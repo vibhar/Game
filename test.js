@@ -69,11 +69,13 @@ function timerFired(){
 	}
 	//TODO
 	//h - upgrade hull
+	//does this by changing a variable, then calls clearGame() and sets screen back to "game"
 	if (globals.keysDown[72]) {
 		return;
 	}
 	//TODO
 	//w - upgrade weapons 
+	//ditto as upgrade hull, but dif. variable
 	if (globals.keysDown[87]) {
 		return;
 	}

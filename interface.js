@@ -40,14 +40,25 @@ function drawBackground(screen){
 	}
 	else if (screen ==="menu") {
 		ctx.drawImage(imgBg, 0, 0, width, height);
-		ctx.font = "48px bold Courier New";
+		ctx.font = "48px Courier New";
 		ctx.fillStyle = "white";
 		ctx.fillText("Angry Angry Bob", 300, 100);
-		ctx.font = "20px bold Courier New";
+		ctx.font = "18px Courier New";
 		ctx.fillText("Bob is angry.",10,200);
 		ctx.fillText("Bob is a fish.",30,225);
 		ctx.fillText("Bob found a fish-sub.",50,250);
 		ctx.fillText("And now he's taking revenge.", 70, 275);
+		
+		//black transparent box
+		ctx.fillStyle = "rgba(0,0,0,0.5)";
+		ctx.fillRect(450, 150, 260, 225);
+		ctx.font = "20px Courier New";
+		ctx.fillStyle = "white";
+		ctx.fillText("Mission Objective:",470, 180);
+		ctx.fillText("KILL ALL FISH.", 470, 210);
+		ctx.fillText("S: Start", 470, 270);
+		ctx.fillText("space: Shoot", 470,300);
+		ctx.fillText("arrows: Move", 470, 330);
 	}
 }
 
