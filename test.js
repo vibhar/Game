@@ -12,13 +12,10 @@ var bullets = [];
 
 var enemies = [];
 
-var levelObject = new Level(1);
-var waveCount = levelObject.numWaves;
-// levelObject.enemies = levelObject.makeEnemies();
-var delay = 20;
-var enemiesInWave = 4;
-enemies.push(levelObject.enemies.pop());
-enemiesInWave--;
+var levelObject;
+var waveCount;
+var delay;
+var enemiesInWave;
 
 arrX = [];
 arrY = [];
@@ -75,15 +72,13 @@ function timerFired(){
 	}
 	//TODO
 	//h - upgrade hull
-	//does this by changing a variable, then calls clearGame() and sets screen back to "game"
-	if (globals.keysDown[72]) {
-		return;
+	if (screen === "upgrade" && globals.keysDown[72]) {
+		screen = "game";
 	}
 	//TODO
 	//w - upgrade weapons 
-	//ditto as upgrade hull, but dif. variable
-	if (globals.keysDown[87]) {
-		return;
+	if (screen === "upgrade" && globals.keysDown[87]) {
+		screen = "game";
 	}
 	//r - reset (to level 1), or s - start
 	if (globals.keysDown[82]||globals.keysDown[83]) {
@@ -99,13 +94,6 @@ function timerFired(){
 			health-=100;
         return;
 		}
-	}
-	//u - upgrade level - for testing
-	if (globals.keysDown[85]) {
-		screen = "upgrade";
-		clearGame();
-		level++;
-		return;
 	}
 	
 	
@@ -125,6 +113,13 @@ function timerFired(){
 		score = 0;
 		deadCount = 0;
 		missCount = 0;
+
+		levelObject = new Level(1);
+		waveCount = levelObject.numWaves;
+		delay = 20;
+		enemiesInWave = 4;
+		enemies.push(levelObject.enemies.pop());
+		enemiesInWave--;
 	}
 }
 /****/
@@ -210,6 +205,7 @@ function onTimer() {
 			enemies.length === 0 && 
 			levelObject.enemies.length === 0){
 			
+			screen = "upgrade";
 			console.log("new level");
 			var oldLevelNum = levelObject.levelNum;
 			levelObject = new Level(oldLevelNum+1);
@@ -228,7 +224,7 @@ function onTimer() {
 		else if (enemiesInWave === 0 && waveCount !== 0)
 		{
 			console.log("end wave");
-			delay = 100;
+			delay = 50;
 			waveCount--;
 			if (waveCount !== 0)
 				enemiesInWave = 4;
@@ -253,7 +249,7 @@ function onTimer() {
 		//enemy bullet collisions
 		enemies.forEach(function(enemy){
 			bullets.forEach(function(bullet){
-				if (enemy.hitByBullet(bullet)) score+=50;
+				enemy.hitByBullet(bullet)
 			});
 			
 			health = (health - enemy.collidePlayer(mySquare));
@@ -269,9 +265,6 @@ function onTimer() {
 				missCount++;
 				enemies.splice(i,1);
 			}
-			/*if (!enemies[i].isAlive() || enemies[i].isOffScreen()){              
-				enemies.splice(i,1);
-			}*/
 		}
 		
 		//remove used up or off screen bullets
@@ -285,26 +278,8 @@ function onTimer() {
     redrawAll();
 }
 
-function onMouseDown(event) {
-    
-	/*var clickX = event.pageX - canvas.offsetLeft;
-	var clickY = event.pageY - canvas.offsetTop;
-    
-	var x = mySquare.x;
-	var y = mySquare.y;
-
-	var dirX = clickX - mySquare.x;
-	var dirY = clickY - mySquare.y;
-	
-	var newBullet = makeBullet1(x, y, dirX, dirY);
-	bullets.push(newBullet);
-	
-	score += 100;*/
-    
-}
-
 function run() {
-	//canvas.addEventListener('mousedown', onMouseDown, false);
+
 	canvas.addEventListener('keydown', this.keyPressed, false);
 	canvas.addEventListener('keyup', this.keyReleased, false);
     // make canvas focusable, then give it focus!
