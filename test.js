@@ -26,6 +26,7 @@ var count = 0;
 var deadCount = 0;
 var missCount = 0;
 
+var bulletInterval;
 /****/
 var globals = {};
 globals.keysDown = {};
@@ -63,11 +64,12 @@ function timerFired(){
         arrX.push(3,5,12);
 		}
 	//space - fires bullets
-	if (globals.keysDown[32]) {
+	if (bulletInterval === 0 && globals.keysDown[32]) {
 		var x = mySquare.posX;
 	    var y = mySquare.posY;
         var newBullet = makeBullet1(x, y, 1, 0);
         bullets.push(newBullet);
+        bulletInterval = mySquare.rateOfFire;
         return;
 	}
 	//TODO
@@ -120,6 +122,8 @@ function timerFired(){
 		enemiesInWave = 4;
 		enemies.push(levelObject.enemies.pop());
 		enemiesInWave--;
+
+		bulletInterval = mySquare.rateOfFire;
 	}
 }
 /****/
@@ -195,6 +199,9 @@ function redrawAll() {
 function onTimer() {
 	if (screen==="game") {
 		count++;
+
+		if (bulletInterval>0) bulletInterval--;
+
 		if (delay > 0)
 			delay--;
 		

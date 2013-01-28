@@ -14,6 +14,7 @@ function Player(posX, posY){
     this.posX = posX;
     this.posY = posY;
 	
+    this.rateOfFire = 10;
     this.isOffScreen = function(){
         return !(this.posX >= 0 && 
                 this.posX <= (canvas.width - 25) &&
