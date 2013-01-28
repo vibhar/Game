@@ -11,8 +11,13 @@ var healthLimbo = 0;
 var bullets = [];
 
 var enemies = [];
-var foo = new makeEnemy1(800,0);
-enemies.push(foo);
+
+var levelObject = new Level(1);
+// levelObject.enemies = levelObject.makeEnemies();
+var delay = 20;
+var enemiesInWave = 4;
+enemies.push(levelObject.enemies.pop());
+enemiesInWave--;
 
 arrX = [];
 arrY = [];
@@ -190,33 +195,36 @@ function redrawAll() {
 
 }
 
+
 function onTimer() {
 	if (screen==="game") {
 		count++;
+		if (delay > 0)
+			delay--;
 		
-		//set this to false if you don't want a wave only a single enemy
-		//useful for debugging purposes
-		var wave = true;
-		if (wave){
-			//if (count > 10 && (count % 5 === 0)) {enemies.push(new makeEnemy1(800,0));}
-			if (count === 13){
-				var randomnumber=Math.floor(Math.random()*250);
-				enemies.push(new makeEnemy4(800, 75 + randomnumber));
-			}
-			if (count === 19){
-				var randomnumber=Math.floor(Math.random()*250);
-				enemies.push(new makeEnemy4(800, 75 + randomnumber));
-			}
-			if (count === 24){
-				var randomnumber=Math.floor(Math.random()*250);
-				enemies.push(new makeEnemy4(800, 75 + randomnumber));
-			}
-			if (count === 29){
-				var randomnumber=Math.floor(Math.random()*250);
-				enemies.push(new makeEnemy4(800, 75 + randomnumber));
-			}
-		}
 		t += timerDelay/100;
+
+		if (delay === 0 && enemies.length === 0 && levelObject.enemies.length === 0){
+			console.log("new level");
+			var oldLevelNum = levelObject.levelNum;
+			levelObject = new Level(oldLevelNum+1);
+			// levelObject.enemies = levelObject.makeEnemies();
+			enemiesInWave = 4;
+			enemies.push(levelObject.enemies.pop());
+			enemiesInWave--;
+			delay = 20;
+		}
+		else if (levelObject.enemies.length !== 0 && delay === 0){
+			console.log("adding enemy");
+			enemies.push(levelObject.enemies.pop());
+			delay = 20;
+		}
+		else if (enemies.length === 0 && delay === 0)
+		{
+			console.log("end wave");
+			delay = 100;
+			enemiesInWave = 4;
+		}
 
 
 		//score++;
@@ -249,7 +257,7 @@ function onTimer() {
 				deadCount++;
 				enemies.splice(i,1);
 			}
-			if ((typeof(enemies)!==undefined) && (enemies[i].isOffScreen())) {
+			else if (enemies[i].isOffScreen()) {
 				missCount++;
 				enemies.splice(i,1);
 			}
