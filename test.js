@@ -13,6 +13,7 @@ var bullets = [];
 var enemies = [];
 
 var levelObject = new Level(1);
+var waveCount = levelObject.numWaves;
 // levelObject.enemies = levelObject.makeEnemies();
 var delay = 20;
 var enemiesInWave = 4;
@@ -204,26 +205,33 @@ function onTimer() {
 		
 		t += timerDelay/100;
 
-		if (delay === 0 && enemies.length === 0 && levelObject.enemies.length === 0){
+		if (enemiesInWave === 0 && 
+			delay === 0 && 
+			enemies.length === 0 && 
+			levelObject.enemies.length === 0){
+			
 			console.log("new level");
 			var oldLevelNum = levelObject.levelNum;
 			levelObject = new Level(oldLevelNum+1);
-			// levelObject.enemies = levelObject.makeEnemies();
+			waveCount = levelObject.numWaves;
 			enemiesInWave = 4;
 			enemies.push(levelObject.enemies.pop());
 			enemiesInWave--;
 			delay = 20;
 		}
-		else if (levelObject.enemies.length !== 0 && delay === 0){
+		else if (waveCount !== 0 && enemiesInWave !== 0 && delay === 0){
 			console.log("adding enemy");
 			enemies.push(levelObject.enemies.pop());
 			delay = 20;
+			enemiesInWave--;
 		}
-		else if (enemies.length === 0 && delay === 0)
+		else if (enemiesInWave === 0 && waveCount !== 0)
 		{
 			console.log("end wave");
 			delay = 100;
-			enemiesInWave = 4;
+			waveCount--;
+			if (waveCount !== 0)
+				enemiesInWave = 4;
 		}
 
 
