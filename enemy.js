@@ -12,18 +12,17 @@ var playerHeight = 25;
 var img = new Image();
 img.src = "fish/angryfish_sheet.png";
 
-function Enemy(posX, posY, posFunction, health, armor, 
-               drawEnemyFunction, damage, numSprites)
+function Enemy(posX, posY, posFunction, drawEnemyFunction, numSprites, level)
 {
     this.posX = posX; 
     this.posY = posY;
     this.posFunction = posFunction; 
-    this.health = health;
-    this.armor = armor;
+    this.health = 100 + 20 * level;
+    this.armor = 1 + level / 2;
     this.drawEnemyFunction = drawEnemyFunction;
-	this.damage = damage;
+	this.damage = 100 + 50*level;
     this.frame = 0;
-    this.speed = 1/10;
+    this.speed = 1 / 10;
 	
     this.updatePos = function(t, dt, count){
         var newPos = this.posFunction(t, dt, this.posX, this.posY, this.speed);
@@ -104,7 +103,7 @@ crab.onload = function() {
   var ctx = canvas.getContext("2d");
 }
 
-function makeEnemy2(posX, posY)
+function makeEnemy2(posX, posY, level)
 {
     var posFunction = function(t, dt, prevPosX, prevPosY, speed){
         return [prevPosX-speed*dt, 200 + 50 * Math.sin(1/10*t)];
@@ -113,11 +112,11 @@ function makeEnemy2(posX, posY)
         ctx.drawImage(swordfish, x, y);
     }
 
-    return new Enemy(posX, posY, posFunction, 100, 1,drawEnemyFunction, 100, 1);
+    return new Enemy(posX, posY, posFunction, drawEnemyFunction, 1, level);
 }
 
 
-function makeEnemy3(posX, posY)
+function makeEnemy3(posX, posY, level)
 {
     var posFunction = function(t, dt, prevPosX, prevPosY, speed){
         return [prevPosX-speed*dt, prevPosY];
@@ -126,11 +125,11 @@ function makeEnemy3(posX, posY)
         ctx.drawImage(pufferfish, x, y);
     }
 
-    return new Enemy(posX, posY, posFunction, 100, 1,drawEnemyFunction, 100, 1);
+    return new Enemy(posX, posY, posFunction, drawEnemyFunction, 1, level);
 }
 
 
-function makeEnemy4(posX, posY)
+function makeEnemy4(posX, posY, level)
 {
     var posFunction = function(t, dt, prevPosX, prevPosY, speed){
         return [prevPosX-speed*dt, prevPosY];
@@ -139,10 +138,10 @@ function makeEnemy4(posX, posY)
         ctx.drawImage(crab, x, y);
     }
 
-    return new Enemy(posX, posY, posFunction, 100, 1,drawEnemyFunction, 100, 1);
+    return new Enemy(posX, posY, posFunction, drawEnemyFunction, 1, level);
 }
 
-function makeEnemy1(posX, posY)
+function makeEnemy1(posX, posY, level)
 {
     var posFunction = function(t, dt, prevPosX, prevPosY, speed){
         return [prevPosX-speed*dt, 300 + 100 * Math.sin(1/10*t)];
@@ -152,5 +151,5 @@ function makeEnemy1(posX, posY)
         ctx.drawImage(img, 48*frame, 0, 47, 32, x, y, 30, 30);
     }
 
-    return new Enemy(posX, posY, posFunction, 100, 1,drawEnemyFunction, 100, 1);
+    return new Enemy(posX, posY, posFunction,drawEnemyFunction, 1, level);
 }
