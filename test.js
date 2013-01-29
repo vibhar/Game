@@ -213,7 +213,7 @@ function onTimer() {
 			levelObject.enemies.length === 0){
 			
 			screen = "upgrade";
-			console.log("new level");
+			// console.log("new level");
 			var oldLevelNum = levelObject.levelNum;
 			levelObject = new Level(oldLevelNum+1);
 			waveCount = levelObject.numWaves;
@@ -223,14 +223,14 @@ function onTimer() {
 			delay = 20;
 		}
 		else if (waveCount !== 0 && enemiesInWave !== 0 && delay === 0){
-			console.log("adding enemy");
+			// console.log("adding enemy");
 			enemies.push(levelObject.enemies.pop());
 			delay = 20;
 			enemiesInWave--;
 		}
 		else if (enemiesInWave === 0 && waveCount !== 0)
 		{
-			console.log("end wave");
+			// console.log("end wave");
 			delay = 50;
 			waveCount--;
 			if (waveCount !== 0)
@@ -256,17 +256,22 @@ function onTimer() {
 		//enemy bullet collisions
 		enemies.forEach(function(enemy){
 			bullets.forEach(function(bullet){
-				enemy.hitByBullet(bullet)
+				enemy.hitByBullet(bullet);
+				console.log(enemy.health);
 			});
 			
 			health = (health - enemy.collidePlayer(mySquare));
+			console.log(enemy.health);
 		});
 		
 		//remove dead or off screen enemies
 		for (var i = enemies.length-1; i >= 0; i--){
-			if (!enemies[i].isAlive()) {
+			console.log(enemies[i].health);
+			if (enemies[i].isAlive() === false) {
+				console.log(enemies[i]);
 				deadCount++;
 				enemies.splice(i,1);
+				console.log("boop");
 			}
 			else if (enemies[i].isOffScreen()) {
 				missCount++;

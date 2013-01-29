@@ -36,10 +36,11 @@ function Enemy(posX, posY, posFunction, drawEnemyFunction, numSprites, level)
             this.drawEnemyFunction(this.posX, this.posY, this.frame);
     }
     this.bulletDamage = function(bullet){
-        this.health -= bullet.damage * 1/(this.armor);
+        return Math.ceil(bullet.damage * 1/(this.armor));
     }
 
     this.isAlive = function(){
+        console.log(this.health > 0);
         return this.health > 0;
     }
     

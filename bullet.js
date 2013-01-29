@@ -49,5 +49,5 @@ function makeBullet1(posX, posY, dirX, dirY){
     var normDirX = dirX / Math.sqrt(dirX*dirX + dirY*dirY);
     var normDirY = dirY / Math.sqrt(dirX*dirX + dirY*dirY);
     var speed = 20;
-    return new Bullet(posX, posY, normDirX, normDirY, speed, 50, drawBulletFunction);
+    return new Bullet(posX, posY, normDirX, normDirY, speed, 60, drawBulletFunction);
 }
