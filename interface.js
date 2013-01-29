@@ -12,9 +12,14 @@ var hullCost = 300;
 //coins you calculate based off of score?
 var coins = 300;
 
+var imgBg = new Image();
+imgBg.src = "ocean.jpg";
+
+var imgBar = new Image();
+imgBar.src = "bar.png";
+
 function drawBackground(screen){
-	var imgBg = new Image();
-	imgBg.src = "ocean.jpg";
+	
 	if (screen==="game") {
 		ctx.drawImage(imgBg,0, 1/10 * height, width, 4/5 * height);
 	}
@@ -114,8 +119,7 @@ function drawHealthBar(){
 }
 function drawTopMenuBar(health, healthLimbo){
     
-    var imgBar = new Image();
-    imgBar.src = "bar.png"
+
     ctx.drawImage(imgBar,0, 0, width, 1/10 * height);
 	// ctx.fillStyle = "rgba(6,42,140,1.0)";
     // ctx.fillRect(0, 0, 800, 50);
@@ -134,8 +138,7 @@ function drawTopMenuBar(health, healthLimbo){
 }
 
 function drawBottomMenuBar(){
-    var imgBar = new Image();
-    imgBar.src = "bar.png"
+
     ctx.drawImage(imgBar,0, 9/10*height, width, 1/10 * height);
     // ctx.fillStyle = "rgba(6,42,140,1.0)";
     // ctx.fillRect(0, 450, 800, 50);
