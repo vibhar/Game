@@ -1,3 +1,4 @@
+//team: Connie Yao (cyao), Sean Donegan (spdonega), Vibha Rao (vibhar)
 //requires bullet.js
 
 var canvas = document.getElementById("myCanvas");

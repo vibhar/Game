@@ -1,3 +1,5 @@
+//team: Connie Yao (cyao), Sean Donegan (spdonega), Vibha Rao (vibhar)
+
 function Level(levelNum){
     this.numWaves = Math.ceil(levelNum / 2) + 1;
 
