@@ -10,10 +10,15 @@ var bulletHeight = 10;
 var playerWidth = 25;
 var playerHeight = 25;
 
-function Enemy(posX, posY, posFunction, drawEnemyFunction, numSprites, level)
+function Enemy(posX, posY, posFunction, drawEnemyFunction, 
+               numSprites, level, width, height)
 {
     this.posX = posX; 
     this.posY = posY;
+
+    this.width = width;
+    this.height = height;
+
     this.posFunction = posFunction; 
     this.health = 100 + 20 * level;
     this.armor = 1 + level / 2;
@@ -33,9 +38,6 @@ function Enemy(posX, posY, posFunction, drawEnemyFunction, numSprites, level)
         this.count = this.count % (this.numSprites * 4);
 
         this.frame = Math.floor(this.count / 4);
-        console.log("The frame is: ", this.frame);
-        console.log("The count is: ", this.count);
-        console.log("The num sprites is: ", this.numSprites)
     }
 
     this.drawEnemy = function(){
@@ -59,10 +61,12 @@ function Enemy(posX, posY, posFunction, drawEnemyFunction, numSprites, level)
     
     this.hitByBullet = function(bullet){
 
-        if (this.posX <= (bullet.posX + bulletWidth) &&
-            bullet.posX <= (this.posX + enemyWidth) &&
-            this.posY <= (bullet.posY + bulletHeight) &&
-            bullet.posY <= (this.posY + enemyHeight)){
+        if (this.posX <= (bullet.posX + bullet.width) &&
+            bullet.posX <= (this.posX + this.width) &&
+            this.posY <= (bullet.posY + bullet.height) &&
+            bullet.posY <= (this.posY + this.height)){
+            
+            console.log("hit by bullet");
             this.health -= this.bulletDamage(bullet);
             bullet.usedUp = true;
             return true;
@@ -71,10 +75,10 @@ function Enemy(posX, posY, posFunction, drawEnemyFunction, numSprites, level)
     }
 
 	this.collidePlayer = function (player) {
-		if (this.posX <= (player.posX + playerWidth) &&
-            player.posX <= (this.posX + enemyWidth) &&
-            this.posY <= (player.posY + playerHeight) &&
-            player.posY <= (this.posY + enemyHeight)){
+		if (this.posX <= (player.posX + player.width) &&
+            player.posX <= (this.posX + this.width) &&
+            this.posY <= (player.posY + player.height) &&
+            player.posY <= (this.posY + this.height)){
             this.health = 0;
 			return this.damage;
         }
@@ -117,8 +121,6 @@ function makeEnemy2(posX, posY, level)
         return [prevPosX-speed*dt, 200 + 50 * Math.sin(1/10*t)];
     }
     var drawEnemyFunction = function(x, y, frame){
-        // ctx.drawImage(swordfish, x, y);
-        console.log("The frame is: ", frame);
         ctx.drawImage(swordfish, 
                       142*frame, 0, 
                       142, 48, 
@@ -126,7 +128,8 @@ function makeEnemy2(posX, posY, level)
                       100, 50);
     }
 
-    return new Enemy(posX, posY, posFunction, drawEnemyFunction, 4, level);
+    return new Enemy(posX, posY, posFunction, drawEnemyFunction, 
+                     4, level, 100, 50);
 }
 
 
@@ -143,7 +146,8 @@ function makeEnemy3(posX, posY, level)
                       50, 50);
     }
 
-    return new Enemy(posX, posY, posFunction, drawEnemyFunction, 4, level);
+    return new Enemy(posX, posY, posFunction, drawEnemyFunction, 
+                     4, level, 50, 50);
 }
 
 
@@ -160,7 +164,8 @@ function makeEnemy4(posX, posY, level)
                       50, 50);
     }
 
-    return new Enemy(posX, posY, posFunction, drawEnemyFunction, 2, level);
+    return new Enemy(posX, posY, posFunction, drawEnemyFunction,
+                     2, level, 50, 50);
 }
 
 function makeEnemy1(posX, posY, level)
@@ -177,5 +182,6 @@ function makeEnemy1(posX, posY, level)
                       50, 50);
     }
 
-    return new Enemy(posX, posY, posFunction,drawEnemyFunction, 4, level);
+    return new Enemy(posX, posY, posFunction,drawEnemyFunction,
+                     4, level, 50, 50);
 }

@@ -15,6 +15,8 @@ function Bullet(posX, posY, dirX, dirY, speed, damage, drawBulletFunction)
     this.damage = damage;
     this.usedUp = false;
     
+    this.height = 10;
+    this.width = 10;
     
     this.drawBulletFunction = drawBulletFunction;
 
