@@ -1,3 +1,5 @@
+//team: Connie Yao (cyao), Sean Donegan (spdonega), Vibha Rao (vibhar)
+
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
 
