@@ -112,8 +112,11 @@ function drawHealthBar(){
 }
 function drawTopMenuBar(health, healthLimbo){
     
-	ctx.fillStyle = "rgba(6,42,140,1.0)";
-    ctx.fillRect(0, 0, 800, 50);
+    var imgBar = new Image();
+    imgBar.src = "bar.png"
+    ctx.drawImage(imgBar,0, 0, width, 1/10 * height);
+	// ctx.fillStyle = "rgba(6,42,140,1.0)";
+    // ctx.fillRect(0, 0, 800, 50);
 
     //draw the health bar
     ctx.fillStyle = "rgba(0,0,0,1.0)";
@@ -129,6 +132,9 @@ function drawTopMenuBar(health, healthLimbo){
 }
 
 function drawBottomMenuBar(){
-    ctx.fillStyle = "rgba(6,42,140,1.0)";
-    ctx.fillRect(0, 450, 800, 50);
+    var imgBar = new Image();
+    imgBar.src = "bar.png"
+    ctx.drawImage(imgBar,0, 9/10*height, width, 1/10 * height);
+    // ctx.fillStyle = "rgba(6,42,140,1.0)";
+    // ctx.fillRect(0, 450, 800, 50);
 }
