@@ -253,8 +253,11 @@ function onTimer() {
 
 		bubbles.forEach(function(bubble){
 			bubble.updatePos(t, timerDelay);
+			if (health <= 90) {
+				health = (health - bubble.collidePlayer(mySquare));
+			}
 		});
-		
+
 		//remove dead or off screen enemies
 		for (var i = enemies.length-1; i >= 0; i--){
 			//console.log(enemies[i].health);
@@ -277,6 +280,19 @@ function onTimer() {
 				bullets.splice(i,1);
 			}
 		}
+
+		//remove bubbles used up or off screen 
+		for (var i = bubbles.length-1; i >= 0; i--){
+			//console.log(enemies[i].health);
+			if (bubbles[i].exists() === false) {
+				console.log(bubbles[i]);
+				bubbles.splice(i,1);
+			}
+			else if (bubbles[i].isOffScreen()) {
+				bubbles.splice(i,1);
+			}
+		}
+		
 	}
     
     redrawAll();

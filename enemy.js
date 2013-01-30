@@ -23,13 +23,13 @@ function Enemy(posX, posY, posFunction, drawEnemyFunction,
     this.health = 50 + 20 * level;
     this.armor = 1 + level / 2;
     this.drawEnemyFunction = drawEnemyFunction;
-  	this.damage = 100;
+    this.damage = 100;
     this.frame = 0;
     this.count = 0;
     this.speed = 1 / 10;
     this.numSprites = numSprites;
 
-	
+
     this.updatePos = function(t, dt, count){
         var newPos = this.posFunction(t, dt, this.posX, this.posY, this.speed);
         this.posX = newPos[0];
@@ -52,20 +52,20 @@ function Enemy(posX, posY, posFunction, drawEnemyFunction,
         // console.log(this.health > 0);
         return this.health > 0;
     }
-    
+
     this.isOffScreen = function(){
         var xOff = (this.posX <= 0 || this.posX >= canvas.width);
         var yOff = (this.posY <= 0 || this.posY >= canvas.height);
         return xOff || yOff;
     }
-    
+
     this.hitByBullet = function(bullet){
 
         if (this.posX <= (bullet.posX + bullet.width) &&
             bullet.posX <= (this.posX + this.width) &&
             this.posY <= (bullet.posY + bullet.height) &&
             bullet.posY <= (this.posY + this.height)){
-            
+
             console.log("hit by bullet");
             this.health -= this.bulletDamage(bullet);
             bullet.usedUp = true;
@@ -85,7 +85,6 @@ function Enemy(posX, posY, posFunction, drawEnemyFunction,
 		else return 0;
 	}
 }
-
 
 var angryfish = new Image();
 angryfish.src = "fish/angryfish_sheet.png";

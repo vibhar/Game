@@ -53,30 +53,30 @@ function BubbleObject(){
         var randomNumber=Math.floor(Math.random()*4);
         //console.log(randomNumber);
         if (randomNumber === 0){
-            bubbleList.push(makeAirBubble(4*100, 0))
-            bubbleList.push(makeAirBubble(4*100, 0))
-            bubbleList.push(makeAirBubble(4*100, 0))   
+            bubbleList.push(makeAirBubble(bubbleNumber*100, 480));
+            bubbleList.push(makeAirBubble(bubbleNumber*100, 480));
+            bubbleList.push(makeAirBubble(bubbleNumber*100, 480));   
         }
         else if(randomNumber === 1){
-            bubbleList.push(makeAirBubble(bubbleNumber*100, 0))
-            bubbleList.push(makeAirBubble(bubbleNumber*110, 0))
-            bubbleList.push(makeAirBubble(bubbleNumber*120, 0))
+            bubbleList.push(makeAirBubble(bubbleNumber*100, 480));   
+            bubbleList.push(makeAirBubble(bubbleNumber*100, 480));   
+            bubbleList.push(makeAirBubble(bubbleNumber*100, 480));   
         }
         else if(randomNumber === 2){
-            bubbleList.push(makeAirBubble(bubbleNumber*100, 0))
-            bubbleList.push(makeAirBubble(bubbleNumber*100, 0))
-            bubbleList.push(makeAirBubble(bubbleNumber*100, 0))
-            bubbleList.push(makeAirBubble(bubbleNumber*100, 0))
-            bubbleList.push(makeAirBubble(bubbleNumber*100, 0))
+            bubbleList.push(makeAirBubble(bubbleNumber*100, 480));   
+            bubbleList.push(makeAirBubble(bubbleNumber*100, 480));   
+            bubbleList.push(makeAirBubble(bubbleNumber*100, 480));   
+            bubbleList.push(makeAirBubble(bubbleNumber*100, 480));   
+            bubbleList.push(makeAirBubble(bubbleNumber*100, 480));   
         }
         else{
-            bubbleList.push(makeAirBubble(bubbleNumber*100, 0))
-            bubbleList.push(makeAirBubble(bubbleNumber*100, 0))
-            bubbleList.push(makeAirBubble(bubbleNumber*100, 0))
-            bubbleList.push(makeAirBubble(bubbleNumber*100, 0))
-            bubbleList.push(makeAirBubble(bubbleNumber*100, 0))
-            bubbleList.push(makeAirBubble(bubbleNumber*100, 0))
-            bubbleList.push(makeAirBubble(bubbleNumber*100, 0))
+            bubbleList.push(makeAirBubble(bubbleNumber*100, 480));   
+            bubbleList.push(makeAirBubble(bubbleNumber*100, 480));   
+            bubbleList.push(makeAirBubble(bubbleNumber*100, 480));   
+            bubbleList.push(makeAirBubble(bubbleNumber*100, 480));   
+            bubbleList.push(makeAirBubble(bubbleNumber*100, 480));   
+            bubbleList.push(makeAirBubble(bubbleNumber*100, 480));   
+            bubbleList.push(makeAirBubble(bubbleNumber*100, 480));   
         } 
 
         return bubbleList;
