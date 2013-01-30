@@ -43,13 +43,13 @@ airBubbleImg.onload = function() {
 function makeAirBubble(posX, posY) {
 
   var posFunction = function(t, dt, prevPosX, prevPosY, speed){
-    return [prevPosX, 300]
+    return [prevPosX, prevPosY - speed*dt]
   }
 
   var drawAirBubbleFunction = function(posX, posY) {
     ctx.drawImage(airBubbleImg, posX, posY, 10, 10);
   }
 
-  var speed = 1/00
+  var speed = 1 / 10
   return new Bubble(posX, posY, posFunction, drawAirBubbleFunction, speed, -10)
 }
