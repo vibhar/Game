@@ -11,10 +11,11 @@ var health = 1000;
 var healthLimbo = 0;
 
 var bullets = [];
-
 var enemies = [];
+var bubbles = [];
 
 var levelObject;
+var bubbleObject;
 var waveCount;
 var delay;
 var enemiesInWave;
@@ -29,6 +30,7 @@ var deadCount = 0;
 var missCount = 0;
 
 var bulletInterval;
+
 /****/
 var globals = {};
 globals.keysDown = {};
@@ -113,26 +115,23 @@ function timerFired(){
 		timerDelay = 100;
 		t = 0;
 		enemies = [];
+		bubbles = [];
 		count = 0;
 		score = 0;
 		deadCount = 0;
 		missCount = 0;
 
 		levelObject = new Level(1);
+		bubbleObject = new BubbleObject();
 		waveCount = levelObject.numWaves;
 		delay = 20;
 		enemiesInWave = 4;
 		enemies.push(levelObject.enemies.pop());
+		bubbles.push(bubbleObject.bubbles.pop());
 		enemiesInWave--;
 
 		bulletInterval = mySquare.rateOfFire;
 	}
-}
-/****/
-
-function Square(x,y){
-	this.x = x;
-	this.y = y;
 }
 
 var mySquare = new Player(250,250);
@@ -140,20 +139,9 @@ var mySquare = new Player(250,250);
 var score = 0;
 var level = 1;
 
-/*function flip (sVal) {
-  this.up = sVal;
-  this.set = function () {
-	if (this.up === true) this.up = false;
-	else this.up = true;
-  }
-}
-
-var bob = new flip(true); */
-
 function redrawAll() {
     // erase everything -- not efficient, but simple!
     ctx.clearRect(0, 0, 800, 500);
-	// console.log(screen);
 	
     drawBackground(screen);
 	timerFired();
@@ -181,22 +169,16 @@ function redrawAll() {
 		drawTopMenuBar(health, healthLimbo);
 		drawBottomMenuBar();
 		
+		bubbles.forEach(function(bubble){
+			bubble.drawAirBubble();
+		});
 	}
 
 	
 	if (health<=0) {
 		screen = "loss";
 	}
-	
-	// console.log(deadCount, missCount);
-	
-	
-	// bob.set();
-    // if (bob.up) mySquare.y-=3;
-    // else mySquare.y+=3;
-
 }
-
 
 function onTimer() {
 	if (screen==="game") {
@@ -218,8 +200,10 @@ function onTimer() {
 			// console.log("new level");
 			var oldLevelNum = levelObject.levelNum;
 			levelObject = new Level(oldLevelNum+1);
+			bubbleObject = new BubbleObject();
 			waveCount = levelObject.numWaves;
 			enemiesInWave = 4;
+			bubbles.push(bubbleObject.bubbles.pop());
 			enemies.push(levelObject.enemies.pop());
 			enemiesInWave--;
 			delay = 20;
@@ -232,15 +216,11 @@ function onTimer() {
 		}
 		else if (enemiesInWave === 0 && waveCount !== 0)
 		{
-			// console.log("end wave");
 			delay = 50;
 			waveCount--;
 			if (waveCount !== 0)
 				enemiesInWave = 4;
 		}
-
-
-		//score++;
 		
 		//update health limbo (orange part of health bar)
 		if (healthLimbo >= 10){healthLimbo -= 20;}
@@ -259,16 +239,20 @@ function onTimer() {
 		enemies.forEach(function(enemy){
 			bullets.forEach(function(bullet){
 				enemy.hitByBullet(bullet);
-				console.log(enemy.health);
+				//console.log(enemy.health);
 			});
 			
 			health = (health - enemy.collidePlayer(mySquare));
-			console.log(enemy.health);
+			//cconsole.log(enemy.health);
+		});
+
+		bubbles.forEach(function(bubble){
+			bubble.updatePos(t, timerDelay);
 		});
 		
 		//remove dead or off screen enemies
 		for (var i = enemies.length-1; i >= 0; i--){
-			console.log(enemies[i].health);
+			//console.log(enemies[i].health);
 			if (enemies[i].isAlive() === false) {
 				console.log(enemies[i]);
 				deadCount++;
