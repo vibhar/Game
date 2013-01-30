@@ -44,7 +44,7 @@ bulletImg.onload = function() {
   var ctx = canvas.getContext("2d");
 }
 
-function makeBullet1(posX, posY, dirX, dirY){
+function makeBullet1(posX, posY, dirX, dirY, power){
     var drawBulletFunction = function(posX, posY){
         //ctx.fillStyle = "rgba(255,255,255,1.0)";
         //ctx.fillRect(posX, posY, 10, 10);
@@ -52,6 +52,7 @@ function makeBullet1(posX, posY, dirX, dirY){
     }
     var normDirX = dirX / Math.sqrt(dirX*dirX + dirY*dirY);
     var normDirY = dirY / Math.sqrt(dirX*dirX + dirY*dirY);
-    var speed = 20;
-    return new Bullet(posX, posY, normDirX, normDirY, speed, 60, drawBulletFunction);
+    var speed = 40;
+    return new Bullet(posX, posY, normDirX, normDirY, 
+                      speed, 60 * power, drawBulletFunction);
 }

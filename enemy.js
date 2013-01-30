@@ -20,10 +20,10 @@ function Enemy(posX, posY, posFunction, drawEnemyFunction,
     this.height = height;
 
     this.posFunction = posFunction; 
-    this.health = 100 + 20 * level;
+    this.health = 50 + 20 * level;
     this.armor = 1 + level / 2;
     this.drawEnemyFunction = drawEnemyFunction;
-	this.damage = 100 + 50*level;
+  	this.damage = 100;
     this.frame = 0;
     this.count = 0;
     this.speed = 1 / 10;
@@ -45,7 +45,7 @@ function Enemy(posX, posY, posFunction, drawEnemyFunction,
             this.drawEnemyFunction(this.posX, this.posY, this.frame);
     }
     this.bulletDamage = function(bullet){
-        return Math.ceil(bullet.damage * 1/(this.armor));
+        return bullet.damage * 1/(this.armor);
     }
 
     this.isAlive = function(){

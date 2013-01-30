@@ -14,6 +14,7 @@ var bullets = [];
 var enemies = [];
 var bubbles = [];
 
+var mySquare;
 var levelObject;
 var bubbleObject;
 var waveCount;
@@ -71,19 +72,25 @@ function timerFired(){
 	if (bulletInterval === 0 && globals.keysDown[32]) {
 		var x = mySquare.posX;
 	    var y = mySquare.posY;
-        var newBullet = makeBullet1(x, y, 1, 0);
+        var newBullet = makeBullet1(x, y, 1, 0, mySquare.bulletPower);
         bullets.push(newBullet);
         bulletInterval = mySquare.rateOfFire;
         return;
 	}
 	//TODO
-	//h - upgrade hull
+	//h - upgrade rate of fire
 	if (screen === "upgrade" && globals.keysDown[72]) {
+		if (mySquare.canUpgradeRateOfFire()){
+			mySquare.upgradeRateOfFire();
+		}
 		screen = "game";
 	}
 	//TODO
-	//w - upgrade weapons 
+	//w - better bullet power 
 	if (screen === "upgrade" && globals.keysDown[87]) {
+		if (mySquare.canUpgradeBulletPower()){
+			mySquare.upgradeBulletPower();
+		}
 		screen = "game";
 	}
 	//r - reset (to level 1), or s - start
@@ -129,12 +136,10 @@ function timerFired(){
 		enemies.push(levelObject.enemies.pop());
 		bubbles.push(bubbleObject.bubbles.pop());
 		enemiesInWave--;
-
+		mySquare = new Player(250,250);
 		bulletInterval = mySquare.rateOfFire;
 	}
 }
-
-var mySquare = new Player(250,250);
 
 var score = 0;
 var level = 1;
@@ -257,7 +262,8 @@ function onTimer() {
 				console.log(enemies[i]);
 				deadCount++;
 				enemies.splice(i,1);
-				console.log("boop");
+				score += 50;
+				mySquare.coins += 50;
 			}
 			else if (enemies[i].isOffScreen()) {
 				missCount++;

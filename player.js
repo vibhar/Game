@@ -18,8 +18,17 @@ function Player(posX, posY){
 	
     this.width = 60;
     this.height = 52;
-    
-    this.rateOfFire = 10;
+
+    this.rateOfFire = 8;
+    this.bulletPower = 1;
+
+    this.rateOfFireUpgradeCost = 100;
+    this.bulletPowerUpgradeCost = 100;
+
+    this.health = 100;
+
+    this.coins = 0;
+
     this.isOffScreen = function(){
         return !(this.posX >= 0 && 
                 this.posX <= (canvas.width - 25) &&
@@ -40,5 +49,27 @@ function Player(posX, posY){
         //ctx.fillStyle = "rgba(255,247,0,0.5)";
         //ctx.fillRect(this.posX, this.posY, 25, 25);
         ctx.drawImage(player, this.posX, this.posY);
+    }
+
+    this.canUpgradeRateOfFire = function(){
+        return this.rateOfFire > 1 &&
+               this.rateOfFireUpgradeCost <= this.coins;
+    }
+
+    this.canUpgradeBulletPower = function(){
+        return this.bulletPowerUpgradeCost <= this.coins;
+    }
+
+    this.upgradeRateOfFire = function(){
+        this.rateOfFire -= 1;
+        this.coins -= this.rateOfFireUpgradeCost;
+        this.rateOfFireUpgradeCost *= 2;
+
+    }
+
+    this.upgradeBulletPower = function(){
+        this.bulletPower += 0.5;
+        this.coins -= this.bulletPowerUpgradeCost;
+        this.bulletPowerUpgradeCost *= 2;
     }
 }

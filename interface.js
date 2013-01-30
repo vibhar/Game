@@ -28,22 +28,32 @@ function drawBackground(screen){
 		ctx.font = "32px Courier New";
 		ctx.fillStyle = "white";
 		ctx.fillText("Mission Fish Termination: Failure", 75,1/2*height);
+        ctx.fillText("Score: " + score, 300, 1/2*height+ 50);
 		ctx.font = "26px Courier New";
-		ctx.fillText("Replay? Press R!", 275, 1/2*height+50);
+		ctx.fillText("Replay? Press R!", 275, 1/2*height+100);
 	}
 	else if (screen==="upgrade") {
 		ctx.drawImage(imgBg, 0, 0, width, height);
-		ctx.font = "36px Courier New";
+		
+        ctx.font = "36px Courier New";
 		ctx.fillStyle = "white";
-		ctx.fillText("Mission: Success", 375, 1/4*height);
+        ctx.fillText("Mission: Success", 375, 1/4*height);
 		ctx.fillText("CHOOSE YOUR UPGRADE", 310, 1/4*height+50);
-		ctx.font = "20px Courier New";
-		ctx.fillText("Better Weapon? " + weaponCost + " gold", 80, 1/2*height);
+		
+        ctx.font = "20px Courier New";
+		ctx.fillText("Better bullets? " + 
+                     mySquare.bulletPowerUpgradeCost + 
+                     " gold", 
+                     80, 1/2*height);
 		ctx.fillText("Press W", 80, 1/2*height+30);
-		ctx.fillText("Better Hull? " + hullCost + " gold", 500, 1/2*height);
+		ctx.fillText("Better rate of fire? " + 
+                     mySquare.rateOfFireUpgradeCost + 
+                     " gold", 
+                     500, 1/2*height);
 		ctx.fillText("Press H", 500, 1/2*height+30);
-		ctx.font = "30px Courier New";
-		ctx.fillText("Coins Available: " + coins, 300, 400);
+		
+        ctx.font = "30px Courier New";
+		ctx.fillText("Coins Available: " + mySquare.coins, 300, 400);
 	}
 	else if (screen ==="menu") {
 		ctx.drawImage(imgBg, 0, 0, width, height);
@@ -134,7 +144,7 @@ function drawTopMenuBar(health, healthLimbo){
     ctx.font = "28px Geneva";
     ctx.fillStyle = "white";
     ctx.fillText("Level " + levelObject.levelNum, 50, 40);
-    ctx.fillText("Score: " + score, 650, 40);
+    ctx.fillText("Score: " + score, 625, 40);
 }
 
 function drawBottomMenuBar(){
